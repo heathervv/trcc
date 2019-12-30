@@ -14,18 +14,30 @@ class Calendar extends PureComponent {
   constructor() {
     super()
 
-    this.date = moment()
-    this.firstDayOfMonth = moment(this.date).startOf("month").format("d")
-    this.daysInMonth = this.date.daysInMonth()
+    this.state = {
+      date: moment(),
+      firstDayOfMonth: moment().startOf("month").format("d"),
+      daysInMonth: moment().daysInMonth()
+    }
+  }
+
+  changeActiveMonth = (direction) => {
+    const newDate = this.state.date.add(direction, 'M')
+
+    this.setState({
+      date: newDate,
+      firstDayOfMonth: newDate.startOf("month").format("d"),
+      daysInMonth: newDate.daysInMonth()
+    })
   }
 
   render() {
     return (
       <Wrapper>
-        <Header date={this.date} />
+        <Header date={this.state.date} changeActiveMonth={this.changeActiveMonth} />
         <Month
-          firstDayOfMonth={this.firstDayOfMonth}
-          daysInMonth={this.daysInMonth}
+          firstDayOfMonth={this.state.firstDayOfMonth}
+          daysInMonth={this.state.daysInMonth}
         />
       </Wrapper>
     )

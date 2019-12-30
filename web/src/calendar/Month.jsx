@@ -9,9 +9,10 @@ const Wrapper = styled.div`
 
 class Month extends PureComponent {
   renderBlankSpacesPriorToFirstDay = () => {
+    const { firstDayOfMonth } = this.props
     let blankDays = []
 
-    for (let i = 0; i < this.props.firstDayOfMonth; i++) {
+    for (let i = 0; i < firstDayOfMonth; i++) {
       blankDays.push(
         <Day key={`blank-${i}`} blank />
       )
@@ -21,15 +22,18 @@ class Month extends PureComponent {
   }
 
   renderSpacesForAllDaysInMonth = () => {
-    let daysInMonth = []
+    const { daysInMonth, currentDay } = this.props
+    let totalDays = []
 
-    for (let i = 1; i <= this.props.daysInMonth; i++) {
-      daysInMonth.push(
-        <Day key={`actual-${i}`} date={i} />
+    for (let i = 1; i <= daysInMonth; i++) {
+      const isCurrentDay = i.toString() === currentDay
+
+      totalDays.push(
+        <Day key={`actual-${i}`} date={i} current={isCurrentDay} />
       )
     }
 
-    return daysInMonth
+    return totalDays
   }
 
   render() {
