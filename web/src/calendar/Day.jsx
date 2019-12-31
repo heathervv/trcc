@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
   margin-bottom: -1px;
-  background: ${props => props.blank ? '#eee' : '#fff'}
+  background: ${props => props.blank ? '#eee' : '#fff'};
 
   &:first-child,
   &:nth-child(7n + 1) {

@@ -17,7 +17,7 @@
 1. ~~Create calendar UI (dynamic title, days per week)~~
 2. ~~Ability to go through months on single page~~
 3. ~~Show correct shifts per day (time, name)~~
-4. Responsive
+4. ~~Responsive~~
 5. Ability to add any counsellor to a shift via static dropdown list without DB connection (non-removable)
 6. Add accountability hours per counsellor
 7. Connect dropdown list to DB counsellor list

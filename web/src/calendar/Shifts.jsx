@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Fragment } from 'react'
 import styled from 'styled-components'
 
 const SHIFTS = {
@@ -33,7 +33,7 @@ const Time = styled.p`
 `
 
 const NoShiftsFilled = () => (
-  <>
+  <Fragment>
     {
       Object.keys(SHIFTS).map((shift) => (
         <ShiftWrapper key={shift}>
@@ -42,7 +42,7 @@ const NoShiftsFilled = () => (
         </ShiftWrapper>
       ))
     }
-  </>
+  </Fragment>
 )
 
 const Shift = ({ shiftTime, counsellors }) => {
@@ -67,10 +67,10 @@ const Shift = ({ shiftTime, counsellors }) => {
     }
 
     return slots.map((slot, i) => (
-      <>
+      <Fragment key={slot}>
         {i > 0 && "/"}
         {slot}
-      </>
+      </Fragment>
     ))
   }
 

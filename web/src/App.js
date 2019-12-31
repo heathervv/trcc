@@ -3,9 +3,11 @@ import styled from 'styled-components'
 import Calendar from './calendar'
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @media(min-width: 900px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 const App = memo(() => (
