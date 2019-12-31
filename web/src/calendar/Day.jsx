@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
+import Shifts from './Shifts'
 
 const Wrapper = styled.div`
-  height: 125px;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   border-right: 1px solid #000;
@@ -13,16 +13,23 @@ const Wrapper = styled.div`
   &:nth-child(7n + 1) {
     border-left: 1px solid #000;
   }
+
+  &:nth-child(7n + 1),
+  &:nth-child(7n) {
+    background: ${props => !props.blank && '#C6D9F1'};
+  }
 `
 
 const Date = styled.p`
   font-size: 12px;
+  font-weight: 600;
   padding: 5px;
 `
 
-const Day = memo(({ blank, date }) => (
+const Day = memo(({ blank, dayOfMonth, filledShifts }) => (
   <Wrapper blank={blank}>
-    { date && <Date>{date}</Date> }
+    { dayOfMonth && <Date>{dayOfMonth}</Date> }
+    { !blank && <Shifts filledShifts={filledShifts} /> }
   </Wrapper>
 ))
 

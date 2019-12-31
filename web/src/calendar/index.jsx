@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import Header from './Header'
@@ -10,35 +10,28 @@ const Wrapper = styled.div`
   margin: 15px;
 `
 
-class Calendar extends PureComponent {
+class Calendar extends Component {
   constructor() {
     super()
 
     this.state = {
-      date: moment(),
-      firstDayOfMonth: moment().startOf("month").format("d"),
-      daysInMonth: moment().daysInMonth()
+      date: moment()
     }
   }
 
   changeActiveMonth = (direction) => {
-    const newDate = this.state.date.add(direction, 'M')
+    const date = this.state.date.add(direction, 'M')
 
-    this.setState({
-      date: newDate,
-      firstDayOfMonth: newDate.startOf("month").format("d"),
-      daysInMonth: newDate.daysInMonth()
-    })
+    this.setState({ date })
   }
 
   render() {
+    const { date } = this.state
+
     return (
       <Wrapper>
-        <Header date={this.state.date} changeActiveMonth={this.changeActiveMonth} />
-        <Month
-          firstDayOfMonth={this.state.firstDayOfMonth}
-          daysInMonth={this.state.daysInMonth}
-        />
+        <Header date={date} changeActiveMonth={this.changeActiveMonth} />
+        <Month date={date} />
       </Wrapper>
     )
   }

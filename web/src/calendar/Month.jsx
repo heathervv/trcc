@@ -1,46 +1,51 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
 import Day from './Day'
+import TEMP_FAKE_DATA from './dummy_data.json'
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 `
 
-class Month extends PureComponent {
-  renderBlankSpacesPriorToFirstDay = () => {
-    const { firstDayOfMonth } = this.props
-    let blankDays = []
-
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      blankDays.push(
-        <Day key={`blank-${i}`} blank />
-      )
-    }
-
-    return blankDays
-  }
-
-  renderSpacesForAllDaysInMonth = () => {
-    const { daysInMonth, currentDay } = this.props
-    let totalDays = []
-
-    for (let i = 1; i <= daysInMonth; i++) {
-      const isCurrentDay = i.toString() === currentDay
-
-      totalDays.push(
-        <Day key={`actual-${i}`} date={i} current={isCurrentDay} />
-      )
-    }
-
-    return totalDays
-  }
-
+class Month extends Component {
   render() {
+    const firstDayOfMonth = parseInt(this.props.date.startOf("month").format("d"))
+    const totalDaysInMonth = this.props.date.daysInMonth()
+
+    const blankSpaces = [...Array(firstDayOfMonth).keys()]
+    const daysInMonth = [...Array(totalDaysInMonth).keys()]
+
     return (
       <Wrapper>
-        {this.renderBlankSpacesPriorToFirstDay()}
-        {this.renderSpacesForAllDaysInMonth()}
+        {
+          blankSpaces.map((space) => (
+            <Day key={`blank-${space}`} blank />
+          ))
+        }
+        {
+          daysInMonth.map((dayOfMonth) => {
+            const userFriendlyDayOfMonth = dayOfMonth + 1
+
+            const filledShiftsForTheDay = TEMP_FAKE_DATA.find((dayWithShifts) => {
+              const parsedDate = moment(dayWithShifts.date)
+
+              const matchingMonth = parsedDate.format("M") === this.props.date.format("M")
+              const matchingDay = parsedDate.format("D") === userFriendlyDayOfMonth.toString()
+
+              return matchingMonth && matchingDay
+            })
+
+            return (
+              <Day
+                key={`actual-${userFriendlyDayOfMonth}`}
+                dayOfMonth={userFriendlyDayOfMonth}
+                filledShifts={filledShiftsForTheDay}
+              />
+            )
+          })
+        }
       </Wrapper>
     )
   }
