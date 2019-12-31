@@ -10,8 +10,6 @@
 - Drop down of counsellors
 - Each counsellor given a set number of hours
 - admin user who can remove names from shifts
-- send email to laura if counsellor goes above their suggested number of hours?
-
 
 ## Initial Stories to tackle the above
 1. ~~Create calendar UI (dynamic title, days per week)~~
@@ -19,11 +17,19 @@
 3. ~~Show correct shifts per day (time, name)~~
 4. ~~Responsive~~
 5. Ability to add any counsellor to a shift via static dropdown list without DB connection (non-removable)
-6. Add accountability hours per counsellor
-7. Connect dropdown list to DB counsellor list
-8. Add DB connection for filled shifts
-9. Add admin user who can remove counsellors without DB connection
-10. Add DB connection for removing functionality
-11. Add EBU logic (admin is only one who can add them?)
-12. UI for "need to remove a shift? email." flow
-13. Improve styles (color palette, font sizes, etc)
+6. Add admin user who can remove counsellors without DB connection
+7. Add web EBU logic (admin is only one who can add them?)
+8. UI for "need to remove a shift? email." flow
+9. Improve styles (color palette, font sizes, etc)
+10. Create API & DB
+11. Store counsellors in DB
+12. Store shifts in DB
+13. Connect API counsellors to web [GET]
+14. Connect API shifts to web [GET]
+15. Connect filled shift logic to API [POST]
+16. Connect admin removing counsellor from shift to API [POST]
+17. Connect EBU logic (add/remove) to API [POST]
+
+## Things to confirm with Laura
+- How do we feel about Sunday being the first day of the week now?
+- Any concerns with a counsellor being able to schedule *any* counsellor to a shift?
