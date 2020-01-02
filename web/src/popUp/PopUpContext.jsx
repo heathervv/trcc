@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import TEMP_FAKE_DATA from '../dummy_data.json'
-import TEMP_COUNSELLORS from '../dummy_counsellors.json'
 
 export const PopUpContext = React.createContext()
 
@@ -24,23 +22,7 @@ export class PopUpProvider extends Component {
     this.setState({ isVisible: !isVisible })
   }
 
-  changeSelectedShift = (date, shift) => {
-    let counsellor = null
-
-    const selectedDateHasShifts = TEMP_FAKE_DATA.find((dateWithShifts) => dateWithShifts.date === date)
-    if (selectedDateHasShifts) {
-      const selectedShiftHasCounsellors = selectedDateHasShifts.shifts.find((shiftWithCounsellor) => shiftWithCounsellor.shift === shift)
-
-      if (selectedShiftHasCounsellors) {
-        const scheduledCounsellor = selectedShiftHasCounsellors.counsellors[0]
-
-        counsellor = {
-          name: TEMP_COUNSELLORS.find((x) => x.id === scheduledCounsellor.id).name,
-          half: scheduledCounsellor.half
-        }
-      }
-    }
-
+  changeSelectedShift = (date, shift, counsellor) => {
     this.setState({
       selectedShift: {
         date,

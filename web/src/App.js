@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 import Calendar from './calendar'
+import { ApiProvider } from './api/ApiContext'
 import { PopUpProvider } from './popUp/PopUpContext'
 import PopUp from './popUp'
 
@@ -14,10 +15,12 @@ const Wrapper = styled.div`
 
 const App = memo(() => (
   <Wrapper>
-    <PopUpProvider>
-      <Calendar />
-      <PopUp />
-    </PopUpProvider>
+    <ApiProvider>
+      <PopUpProvider>
+        <Calendar />
+        <PopUp />
+      </PopUpProvider>
+    </ApiProvider>
   </Wrapper>
 ))
 

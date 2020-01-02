@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import config from '../config'
+import { ApiContext } from '../api/ApiContext'
 import { PopUpContext, PopUpConsumer } from './PopUpContext'
 import ShiftDetails from './ShiftDetails'
 import PopulateShift from './PopulateShift'
@@ -56,13 +57,22 @@ const Details = styled.div`
   }
 `
 
-// TODO: FOR COUNSELLOR SELECTION
-  // - Button to confirm schedule
-    // - ON-CLICK have confirmation window to verify details
-    // - On confirmation, update calendar UI to show newly filled slot (may have to rework dummy data logic for this)
+const ErrorMessage = styled.p`
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  background: rgba(255, 0, 0, .8);
+  padding: 7px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+`
 
 const PopUp = memo(() => {
+  const apiContext = useContext(ApiContext)
   const popUpContext = useContext(PopUpContext)
+
+  const [errorMessage, setErrorMessage] = useState('')
+  const [selectedCounsellor, changeCounsellor] = useState()
   const [selectedTime, changeTime] = useState()
   const [unavailableTimeBlocks, setUnavailableTimeBlocks] = useState([])
 
@@ -81,7 +91,29 @@ const PopUp = memo(() => {
     }
 
     setUnavailableTimeBlocks(unavailableTimeBlocks)
+
+    return () => {
+      setErrorMessage('')
+    }
   }, [popUpContext])
+
+  const validateRequestedShiftDetails = () => {
+    if (!selectedCounsellor) {
+      setErrorMessage("A counsellor is required when booking a shift.")
+    } else if (!selectedTime) {
+      setErrorMessage("A time is required when booking a shift.")
+    } else {
+      setErrorMessage('')
+      bookShift()
+    }
+  }
+
+  const bookShift = () => {
+    console.log('this is it!', selectedCounsellor, selectedTime);
+    // TODO: Confirm selection before sending
+    //
+    apiContext.scheduleNewShift('date', 'shift', selectedCounsellor)
+  }
 
   return (
     <PopUpConsumer>
@@ -96,12 +128,18 @@ const PopUp = memo(() => {
                 <Details>
                   <ShiftDetails selectedShift={selectedShift} />
                   <PopulateShift
+                    selectedCounsellor={selectedCounsellor}
+                    changeCounsellor={changeCounsellor}
                     selectedTime={selectedTime}
                     changeTime={changeTime}
                     unavailableTimeBlocks={unavailableTimeBlocks}
                   />
                 </Details>
-                <ConfirmShift changeVisibility={changeVisibility} />
+                {
+                  errorMessage &&
+                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                }
+                <ConfirmShift changeVisibility={changeVisibility} bookShift={validateRequestedShiftDetails} />
               </Window>
             </Wrapper>
           }

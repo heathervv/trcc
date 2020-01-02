@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import config from '../config'
+import { ApiConsumer } from '../api/ApiContext'
 import { ShiftWrapper, Name, Time, Unfilled } from './CommonComponents'
-import TEMP_COUNSELLORS from '../dummy_counsellors.json'
 
 const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
   const unFilledShift = () => (
     <Unfilled onClick={() => addCounsellorToShift(shiftTime)}>name</Unfilled>
   )
 
-  const counsellorsOnShift = () => {
+  const counsellorsOnShift = (listOfAllCounsellors) => {
     if (!counsellors) return (unFilledShift())
 
     const totalHoursForShift = 8
@@ -19,12 +19,12 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
       const timeOnShift = counsellor.duration
 
       if (timeOnShift === totalHoursForShift) {
-        slots[0] = TEMP_COUNSELLORS.find((x) => x.id === counsellor.id).name
+        slots[0] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
         slots.pop()
       } else if (counsellor.half === config.SHIFT_HALFS.FIRST) {
-        slots[0] = TEMP_COUNSELLORS.find((x) => x.id === counsellor.id).name
+        slots[0] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
       } else {
-        slots[1] = TEMP_COUNSELLORS.find((x) => x.id === counsellor.id).name
+        slots[1] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
       }
     }
 
@@ -37,10 +37,14 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
   }
 
   return (
-    <ShiftWrapper key={shiftTime}>
-      <Name>{counsellorsOnShift()}</Name>
-      <Time>{shiftTime}</Time>
-    </ShiftWrapper>
+    <ApiConsumer>
+      {({ listOfAllCounsellors }) => (
+        <ShiftWrapper key={shiftTime}>
+          <Name>{counsellorsOnShift(listOfAllCounsellors)}</Name>
+          <Time>{shiftTime}</Time>
+        </ShiftWrapper>
+      )}
+    </ApiConsumer>
   )
 }
 

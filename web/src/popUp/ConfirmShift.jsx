@@ -33,9 +33,9 @@ const ConfirmButton = styled(Button)`
   }
 `
 
-const ConfirmShift = ({ changeVisibility }) => (
+const ConfirmShift = ({ changeVisibility, bookShift }) => (
   <Wrapper>
-    <ConfirmButton>Book shift</ConfirmButton>
+    <ConfirmButton onClick={bookShift}>Book shift</ConfirmButton>
     <Button onClick={changeVisibility}>Cancel</Button>
   </Wrapper>
 )
