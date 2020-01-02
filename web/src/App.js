@@ -1,6 +1,8 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 import Calendar from './calendar'
+import { PopUpProvider } from './popUp/PopUpContext'
+import PopUp from './popUp'
 
 const Wrapper = styled.div`
   @media(min-width: 900px) {
@@ -12,7 +14,10 @@ const Wrapper = styled.div`
 
 const App = memo(() => (
   <Wrapper>
-    <Calendar />
+    <PopUpProvider>
+      <Calendar />
+      <PopUp />
+    </PopUpProvider>
   </Wrapper>
 ))
 

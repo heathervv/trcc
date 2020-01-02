@@ -1,12 +1,12 @@
 [
   {
-    "date": "2019-12-01",
+    "date": "2020-01-05",
     "shifts": [
       {
         "shift": "OVERNIGHT",
         "counsellors": [
           {
-            "name": "Draco",
+            "id": 6,
             "duration": 4,
             "half": "first"
           }
@@ -16,7 +16,7 @@
         "shift": "DAY",
         "counsellors": [
           {
-            "name": "Harry",
+            "id": 1,
             "duration": 8
           }
         ]
@@ -25,12 +25,12 @@
         "shift": "EVENING",
         "counsellors": [
           {
-            "name": "Ron",
+            "id": 2,
             "duration": 4,
             "half": "first"
           },
           {
-            "name": "Hermione",
+            "id": 3,
             "duration": 4,
             "half": "second"
           }
@@ -39,13 +39,13 @@
     ]
   },
   {
-    "date": "2019-12-25",
+    "date": "2020-01-16",
     "shifts": [
       {
         "shift": "DAY",
         "counsellors": [
           {
-            "name": "Luna",
+            "id": 5,
             "duration": 4,
             "half": "second"
           }
@@ -55,7 +55,7 @@
         "shift": "EVENING",
         "counsellors": [
           {
-            "name": "Neville",
+            "id": 4,
             "duration": 8
           }
         ]

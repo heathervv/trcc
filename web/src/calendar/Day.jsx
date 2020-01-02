@@ -26,11 +26,17 @@ const Date = styled.p`
   padding: 5px;
 `
 
-const Day = memo(({ blank, dayOfMonth, filledShifts }) => (
+const Day = memo(({ blank, filledShifts, date }) => {
+  return (
   <Wrapper blank={blank}>
-    { dayOfMonth && <Date>{dayOfMonth}</Date> }
-    { !blank && <Shifts filledShifts={filledShifts} /> }
+    {
+      date &&
+      <>
+        <Date>{date.format("D")}</Date>
+        <Shifts filledShifts={filledShifts} date={date} />
+      </>
+    }
   </Wrapper>
-))
+)})
 
 export default Day
