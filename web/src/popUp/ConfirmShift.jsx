@@ -1,43 +1,76 @@
-import React from 'react'
+import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
+import moment from 'moment'
+import config from '../config'
+import { Button, BookShiftButton } from './CommonComponents'
+import { ApiContext } from '../api/ApiContext'
 
-const Wrapper = styled.div`
+const Confirm = styled.div`
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid grey;
+  text-align: left;
+`
+
+const Header = styled.h2`
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+`
+
+const Details = styled.p`
+  line-height: 1.4;
+  margin-bottom: 16px;
+`
+
+const List = styled.ul`
+  margin-bottom: 8px;
+`
+
+const Item = styled.li`
+  margin-bottom: 8px;
+`
+
+const Bold = styled.span`
+  font-weight: 600;
+`
+
+const ButtonWrapper = styled.div`
   text-align: center;
-
-  @media (min-width: 900px) {
-    text-align: left;
-  }
 `
 
-const Button = styled.button`
-  appearance: none;
-  border-radius: 5px;
-  border: none;
-  margin: 5px;
-  font-weight: 500;
-  text-decoration: underline;
-  min-width: 200px;
+const ScheduleShift = memo(({
+  changeVisibility,
+  bookShift,
+  scheduledShift,
+  selectedTime,
+  selectedCounsellor
+}) => {
+  const apiContext = useContext(ApiContext)
 
-  &:hover {
-    text-decoration: none;
-  }
-`
+  // Turn shift into Title case
+  const formattedShift = `${scheduledShift.shift.charAt(0)}${scheduledShift.shift.substr(1).toLowerCase()}`
 
-const ConfirmButton = styled(Button)`
-  background: #40C622;
-  padding: 12px 20px;
-  text-decoration: none;
+  const correctTimeString = Object.keys(config.SHIFT_STRINGS).find((key) => config.SHIFT_STRINGS[key].key === selectedTime)
+  const formattedTime = config.SHIFT_STRINGS[correctTimeString].value
+  const selectedCounsellorsName = apiContext.listOfAllCounsellors.find((counsellor) => counsellor.id === parseInt(selectedCounsellor)).name
 
-  &:hover {
-    background: #41B428
-  }
-`
+  return (
+    <Confirm>
+      <Header>Confirm shift</Header>
+      <Details>Before booking your shift, please confirm the details below are correct. If everything is correct, click "I confirm" to finish booking your shift.</Details>
+      <List>
+        <Item><Bold>Selected date:</Bold> {moment(scheduledShift.date).format('dddd, MMMM D, YYYY')}</Item>
+        <Item><Bold>Selected shift:</Bold> {formattedShift} ({config.SHIFTS[scheduledShift.shift]})</Item>
+        <Item><Bold>Selected time:</Bold> {formattedTime}</Item>
+        <Item><Bold>Selected counsellor:</Bold> {selectedCounsellorsName}</Item>
+      </List>
+      <ButtonWrapper>
+        <BookShiftButton onClick={bookShift}>I confirm</BookShiftButton>
+        <Button onClick={changeVisibility}>Cancel</Button>
+      </ButtonWrapper>
+    </Confirm>
+  )
+})
 
-const ConfirmShift = ({ changeVisibility, bookShift }) => (
-  <Wrapper>
-    <ConfirmButton onClick={bookShift}>Book shift</ConfirmButton>
-    <Button onClick={changeVisibility}>Cancel</Button>
-  </Wrapper>
-)
-
-export default ConfirmShift
+export default ScheduleShift

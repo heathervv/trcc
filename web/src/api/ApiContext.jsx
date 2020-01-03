@@ -19,13 +19,34 @@ export class ApiProvider extends Component {
     this.setState({ shifts: updatedSchedule })
   }
 
+  findPotentialCounsellorAlreadyOnShift = (date, shift) => {
+    let counsellor = null
+
+    const selectedDateHasShifts = this.state.shifts.find((dateWithShifts) => dateWithShifts.date === date)
+    if (selectedDateHasShifts) {
+      const selectedShiftHasCounsellors = selectedDateHasShifts.shifts.find((shiftWithCounsellor) => shiftWithCounsellor.shift === shift)
+
+      if (selectedShiftHasCounsellors) {
+        const scheduledCounsellor = selectedShiftHasCounsellors.counsellors[0]
+
+        counsellor = {
+          name: this.state.counsellors.find((x) => x.id === scheduledCounsellor.id).name,
+          half: scheduledCounsellor.half
+        }
+      }
+    }
+
+    return counsellor
+  }
+
   render() {
     return (
       <ApiContext.Provider
         value={{
           scheduledShifts: this.state.shifts,
           scheduleNewShift: this.scheduleNewShift,
-          listOfAllCounsellors: this.state.counsellors
+          listOfAllCounsellors: this.state.counsellors,
+          findPotentialCounsellorAlreadyOnShift: this.findPotentialCounsellorAlreadyOnShift
         }}
       >
         {this.props.children}

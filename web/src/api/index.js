@@ -7,7 +7,7 @@ const getScheduledShifts = () => {
 }
 
 const generateCounsellorsOnShift = (shift, counsellor, counsellors = null) => {
-  const half = shift.half === 'half_shift_first' ? config.SHIFT_HALFS.FIRST : config.SHIFT_HALFS.SECOND
+  const half = shift.half === config.SHIFT_STRINGS.FIRST_HALF.key ? config.SHIFT_HALFS.FIRST : config.SHIFT_HALFS.SECOND
 
   if (counsellors) {
     const existingCounsellor = counsellors.find((scheduledCounsellor) => scheduledCounsellor.id === parseInt(counsellor))

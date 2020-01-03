@@ -11,12 +11,12 @@
 - Each counsellor given a set number of hours
 - admin user who can remove names from shifts
 
-## Initial Stories to tackle the above
+## Main Stories
 1. ~~Create calendar UI (dynamic title, days per week)~~
 2. ~~Ability to go through months on single page~~
 3. ~~Show correct shifts per day (time, name)~~
 4. ~~Responsive~~
-5. Ability to add any counsellor to a shift via static dropdown list without DB connection (non-removable)
+5. ~~Ability to add any counsellor to a shift via static dropdown list without DB connection (non-removable)~~
 6. Add admin user who can remove counsellors without DB connection
 7. Add web EBU logic (admin is only one who can add them?)
 8. UI for "need to remove a shift? email." flow
@@ -25,10 +25,14 @@
 11. Store counsellors in DB
 12. Store shifts in DB
 13. Connect API counsellors to web [GET]
-14. Connect API shifts to web [GET]
+14. Connect API shifts to web [GET] (per month)
 15. Connect filled shift logic to API [POST]
 16. Connect admin removing counsellor from shift to API [POST]
 17. Connect EBU logic (add/remove) to API [POST]
+
+## Additional Stories
+1. Error handling (when two counsellors happen to book the same shift at the same time)
+2. Browser and device test
 
 ## Things to confirm with Laura
 - How do we feel about Sunday being the first day of the week now?

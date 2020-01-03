@@ -1,5 +1,6 @@
 import React, { memo, useEffect } from 'react'
 import styled from 'styled-components'
+import config from '../config'
 import { ApiConsumer } from '../api/ApiContext'
 
 const Label = styled.label`
@@ -61,47 +62,47 @@ const PopulateShift = memo(({
           <Label htmlFor="time_options">Select time:</Label>
           <fieldset id="time_options">
             {
-              !unavailableTimeBlocks.includes('full_shift') &&
+              !unavailableTimeBlocks.includes(config.SHIFT_STRINGS.FULL.key) &&
               <Option>
                 <input
                   type="radio"
                   name="time_option"
-                  value="full_shift"
-                  id="full_shift"
-                  checked={selectedTime === 'full_shift'}
-                  onChange={() => changeTime('full_shift')}
+                  value={config.SHIFT_STRINGS.FULL.key}
+                  id={config.SHIFT_STRINGS.FULL.key}
+                  checked={selectedTime === config.SHIFT_STRINGS.FULL.key}
+                  onChange={() => changeTime(config.SHIFT_STRINGS.FULL.key)}
                 />
-                <label htmlFor="full_shift">Full shift (8 hours)</label>
+                <label htmlFor={config.SHIFT_STRINGS.FULL.key}>{config.SHIFT_STRINGS.FULL.value}</label>
               </Option>
             }
 
             {
-              !unavailableTimeBlocks.includes('half_shift_first') &&
+              !unavailableTimeBlocks.includes(config.SHIFT_STRINGS.FIRST_HALF.key) &&
               <Option>
                 <input
                   type="radio"
                   name="time_option"
-                  value="half_shift_first"
-                  id="half_shift_first"
-                  checked={selectedTime === 'half_shift_first'}
-                  onChange={() => changeTime('half_shift_first')}
+                  value={config.SHIFT_STRINGS.FIRST_HALF.key}
+                  id={config.SHIFT_STRINGS.FIRST_HALF.key}
+                  checked={selectedTime === config.SHIFT_STRINGS.FIRST_HALF.key}
+                  onChange={() => changeTime(config.SHIFT_STRINGS.FIRST_HALF.key)}
                 />
-                <label htmlFor="half_shift_first">First half (4 hours)</label>
+                <label htmlFor={config.SHIFT_STRINGS.FIRST_HALF.key}>{config.SHIFT_STRINGS.FIRST_HALF.value}</label>
               </Option>
             }
 
             {
-              !unavailableTimeBlocks.includes('half_shift_second') &&
+              !unavailableTimeBlocks.includes(config.SHIFT_STRINGS.SECOND_HALF.key) &&
               <Option>
                 <input
                   type="radio"
                   name="time_option"
-                  value="half_shift_second"
-                  id="half_shift_second"
-                  checked={selectedTime === 'half_shift_second'}
-                  onChange={() => changeTime('half_shift_second')}
+                  value={config.SHIFT_STRINGS.SECOND_HALF.key}
+                  id={config.SHIFT_STRINGS.SECOND_HALF.key}
+                  checked={selectedTime === config.SHIFT_STRINGS.SECOND_HALF.key}
+                  onChange={() => changeTime(config.SHIFT_STRINGS.SECOND_HALF.key)}
                 />
-                <label htmlFor="half_shift_second">Second half (4 hours)</label>
+                <label htmlFor={config.SHIFT_STRINGS.SECOND_HALF.key}>{config.SHIFT_STRINGS.SECOND_HALF.value}</label>
               </Option>
             }
           </fieldset>

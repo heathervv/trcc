@@ -7,6 +7,7 @@ import { ApiContext } from '../api/ApiContext'
 import { PopUpContext, PopUpConsumer } from './PopUpContext'
 import ShiftDetails from './ShiftDetails'
 import PopulateShift from './PopulateShift'
+import ScheduleShift from './ScheduleShift'
 import ConfirmShift from './ConfirmShift'
 
 const Wrapper = styled.div`
@@ -23,13 +24,17 @@ const Wrapper = styled.div`
 
 const Window = styled.div`
   position: relative;
-  width: 50%;
-  max-width: 800px;
+  width: 85%;
   background: #fff;
   padding: 25px;
   border-radius: 3px;
   border: 1px solid rgba(0,0,0,.5);
   box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+
+  @media (min-width: 900px) {
+    width: 50%;
+    max-width: 800px;
+  }
 `
 
 const Close = styled.button`
@@ -75,18 +80,19 @@ const PopUp = memo(() => {
   const [selectedCounsellor, changeCounsellor] = useState()
   const [selectedTime, changeTime] = useState()
   const [unavailableTimeBlocks, setUnavailableTimeBlocks] = useState([])
+  const [confirmBookShift, changeConfirmBookShift] = useState(false)
 
   useEffect(() => {
     const counsellor = popUpContext.selectedShift.counsellor
     const unavailableTimeBlocks = []
 
     if (counsellor) {
-      unavailableTimeBlocks.push("full_shift")
+      unavailableTimeBlocks.push(config.SHIFT_STRINGS.FULL.key)
 
       if (counsellor.half === config.SHIFT_HALFS.FIRST) {
-        unavailableTimeBlocks.push("half_shift_first")
+        unavailableTimeBlocks.push(config.SHIFT_STRINGS.FIRST_HALF.key)
       } else if (counsellor.half === config.SHIFT_HALFS.SECOND) {
-        unavailableTimeBlocks.push("half_shift_second")
+        unavailableTimeBlocks.push(config.SHIFT_STRINGS.SECOND_HALF.key)
       }
     }
 
@@ -94,8 +100,13 @@ const PopUp = memo(() => {
 
     return () => {
       setErrorMessage('')
+      changeConfirmBookShift(false)
     }
   }, [popUpContext])
+
+  useEffect(() => {
+    changeConfirmBookShift(false)
+  }, [selectedCounsellor, selectedTime])
 
   const validateRequestedShiftDetails = () => {
     if (!selectedCounsellor) {
@@ -104,20 +115,19 @@ const PopUp = memo(() => {
       setErrorMessage("A time is required when booking a shift.")
     } else {
       setErrorMessage('')
-      bookShift()
+      changeConfirmBookShift(true)
     }
   }
 
   const bookShift = () => {
-    // TODO: Confirm selection before sending
-
     const scheduledShift = {
       shift: popUpContext.selectedShift.shift,
-      duration: selectedTime === 'full_shift' ? 8 : 4,
-      half: selectedTime !== 'full_shift' ? selectedTime : null
+      duration: selectedTime === config.SHIFT_STRINGS.FULL.key ? 8 : 4,
+      half: selectedTime !== config.SHIFT_STRINGS.FULL.key ? selectedTime : null
     }
 
     apiContext.scheduleNewShift(popUpContext.selectedShift.date, scheduledShift, selectedCounsellor)
+    popUpContext.changeVisibility()
   }
 
   return (
@@ -144,7 +154,21 @@ const PopUp = memo(() => {
                   errorMessage &&
                   <ErrorMessage>{errorMessage}</ErrorMessage>
                 }
-                <ConfirmShift changeVisibility={changeVisibility} bookShift={validateRequestedShiftDetails} />
+                <ScheduleShift
+                  changeVisibility={changeVisibility}
+                  validateRequestedShiftDetails={validateRequestedShiftDetails}
+                  disableButtons={confirmBookShift}
+                />
+                {
+                  confirmBookShift &&
+                  <ConfirmShift
+                    changeVisibility={changeVisibility}
+                    bookShift={bookShift}
+                    scheduledShift={selectedShift}
+                    selectedTime={selectedTime}
+                    selectedCounsellor={selectedCounsellor}
+                  />
+                }
               </Window>
             </Wrapper>
           }
