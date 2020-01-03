@@ -109,10 +109,15 @@ const PopUp = memo(() => {
   }
 
   const bookShift = () => {
-    console.log('this is it!', selectedCounsellor, selectedTime);
     // TODO: Confirm selection before sending
-    //
-    apiContext.scheduleNewShift('date', 'shift', selectedCounsellor)
+
+    const scheduledShift = {
+      shift: popUpContext.selectedShift.shift,
+      duration: selectedTime === 'full_shift' ? 8 : 4,
+      half: selectedTime !== 'full_shift' ? selectedTime : null
+    }
+
+    apiContext.scheduleNewShift(popUpContext.selectedShift.date, scheduledShift, selectedCounsellor)
   }
 
   return (

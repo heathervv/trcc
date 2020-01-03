@@ -14,8 +14,9 @@ export class ApiProvider extends Component {
   }
 
   scheduleNewShift = (date, shift, counsellor) => {
-    const updatedSchedule = ApiClient.scheduleNewShift(date, shift, counsellor)
-    // TODO: this.setState({ shifts: updatedSchedule })
+    const updatedSchedule = ApiClient.scheduleNewShift(this.state.shifts, date, shift, counsellor)
+
+    this.setState({ shifts: updatedSchedule })
   }
 
   render() {
