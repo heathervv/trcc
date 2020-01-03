@@ -6,6 +6,7 @@ import Month from './Month'
 
 const Wrapper = styled.div`
   min-width: 700px;
+
   @media(min-width: 900px) {
     width: 75%;
     max-width: 1000px;

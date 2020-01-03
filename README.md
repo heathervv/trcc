@@ -19,7 +19,7 @@
 5. ~~Ability to add any counsellor to a shift via static dropdown list without DB connection (non-removable)~~
 6. Add admin user who can remove counsellors without DB connection
 7. Add web EBU logic (admin is only one who can add them?)
-8. UI for "need to remove a shift? email." flow
+8. ~~UI for "need to remove a shift? email." flow~~
 9. Improve styles (color palette, font sizes, etc)
 10. Create API & DB
 11. Store counsellors in DB
