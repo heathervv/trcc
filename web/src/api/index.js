@@ -3,7 +3,6 @@ import TEMP_DATA from './dummy_data.json'
 import TEMP_COUNSELLORS from './dummy_counsellors.json'
 
 const getScheduledShifts = () => {
-  console.log(TEMP_DATA)
   return TEMP_DATA
 }
 

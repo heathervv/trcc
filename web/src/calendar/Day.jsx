@@ -26,14 +26,18 @@ const Date = styled.p`
   padding: 5px;
 `
 
-const Day = memo(({ blank, filledShifts, date }) => {
+const Day = memo(({ blank, filledShifts, date, isAuthenticated }) => {
   return (
   <Wrapper blank={blank}>
     {
       date &&
       <>
         <Date>{date.format("D")}</Date>
-        <Shifts filledShifts={filledShifts} date={date} />
+        <Shifts
+          filledShifts={filledShifts}
+          date={date}
+          isAuthenticated={isAuthenticated}
+        />
       </>
     }
   </Wrapper>

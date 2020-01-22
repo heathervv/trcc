@@ -11,6 +11,8 @@ const Wrapper = styled.div`
 
 class Month extends Component {
   render() {
+    const { isAuthenticated } = this.props
+
     const firstDayOfMonth = parseInt(this.props.date.startOf("month").format("d"))
     const totalDaysInMonth = this.props.date.daysInMonth()
 
@@ -49,6 +51,7 @@ class Month extends Component {
                     key={`actual-${userFriendlyDayOfMonth}`}
                     date={moment(`${this.props.date.format("YYYY-MM")}-${userFriendlyDayOfMonth}`)}
                     filledShifts={filledShiftsForTheDay}
+                    isAuthenticated={isAuthenticated}
                   />
                 )
               })

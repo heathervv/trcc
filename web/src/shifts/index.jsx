@@ -5,7 +5,7 @@ import { SchedulePopUpContext } from '../schedulePopUp/SchedulePopUpContext'
 import NoShiftsFilled from './NoShiftsFilled'
 import Shift from './Shift'
 
-const Shifts = memo(({ filledShifts, date }) => {
+const Shifts = memo(({ filledShifts, date, isAuthenticated }) => {
   const apiContext = useContext(ApiContext)
   const schedulePopUpContext = useContext(SchedulePopUpContext)
 
@@ -35,9 +35,29 @@ const Shifts = memo(({ filledShifts, date }) => {
 
   return (
     <>
-      <Shift {...overnightShift} shiftTime={config.SHIFTS.OVERNIGHT} addCounsellorToShift={addCounsellorToShift} removeCounsellorFromShift={removeCounsellorFromShift} />
-      <Shift {...dayShift} shiftTime={config.SHIFTS.DAY} addCounsellorToShift={addCounsellorToShift} removeCounsellorFromShift={removeCounsellorFromShift} />
-      <Shift {...eveningShift} shiftTime={config.SHIFTS.EVENING} addCounsellorToShift={addCounsellorToShift} removeCounsellorFromShift={removeCounsellorFromShift} />
+      <Shift
+        {...overnightShift}
+        shiftTime={config.SHIFTS.OVERNIGHT}
+        addCounsellorToShift={addCounsellorToShift}
+        removeCounsellorFromShift={removeCounsellorFromShift}
+        isAuthenticated={isAuthenticated}
+      />
+
+      <Shift
+        {...dayShift}
+        shiftTime={config.SHIFTS.DAY}
+        addCounsellorToShift={addCounsellorToShift}
+        removeCounsellorFromShift={removeCounsellorFromShift}
+        isAuthenticated={isAuthenticated}
+      />
+
+      <Shift
+        {...eveningShift}
+        shiftTime={config.SHIFTS.EVENING}
+        addCounsellorToShift={addCounsellorToShift}
+        removeCounsellorFromShift={removeCounsellorFromShift}
+        isAuthenticated={isAuthenticated}
+      />
     </>
   )
 })

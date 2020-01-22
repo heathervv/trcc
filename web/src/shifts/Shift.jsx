@@ -15,7 +15,7 @@ const FilledShift = styled.button`
   line-height: 1;
 `
 
-const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift }) => {
+const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift, isAuthenticated }) => {
   const apiContext = useContext(ApiContext)
 
   const unFilledShift = () => (
@@ -25,8 +25,7 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorF
   const filledShift = (counsellorId, counsellorDuration) => {
     const counsellorName = apiContext.listOfAllCounsellors.find((x) => x.id === counsellorId).name
 
-    // TODO: Make this actually dynamic
-    if ('admin') {
+    if (isAuthenticated) {
       return (
         <FilledShift onClick={() => removeCounsellorFromShift(counsellorId, shiftTime, counsellorDuration)}>{counsellorName}</FilledShift>
       )

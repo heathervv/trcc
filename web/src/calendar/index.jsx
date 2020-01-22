@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component }  from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import Header from './Header'
@@ -31,11 +31,12 @@ class Calendar extends Component {
 
   render() {
     const { date } = this.state
+    const { isAuthenticated } = this.props
 
     return (
       <Wrapper>
-        <Header date={date} changeActiveMonth={this.changeActiveMonth} />
-        <Month date={date} />
+        <Header date={date} changeActiveMonth={this.changeActiveMonth}/>
+        <Month date={date} isAuthenticated={isAuthenticated}/>
       </Wrapper>
     )
   }

@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import Calendar from './calendar'
 import { ApiProvider } from './api/ApiContext'
@@ -15,16 +16,30 @@ const Wrapper = styled.div`
   }
 `
 
+// TODO: - setup login flow for /admin flow (stub out backend for now)
+// - Create API that will validate authentication
+
 const App = memo(() => (
-  <Wrapper>
-    <ApiProvider>
-      <SchedulePopUpProvider>
-        <Calendar />
-        <SchedulePopUp />
-      </SchedulePopUpProvider>
-    </ApiProvider>
-    <CancelShift />
-  </Wrapper>
+  <BrowserRouter>
+    <Wrapper>
+      <ApiProvider>
+        <SchedulePopUpProvider>
+
+          <Switch>
+            <Route path="/admin">
+              <Calendar isAuthenticated />
+            </Route>
+            <Route path="/">
+              <Calendar />
+            </Route>
+          </Switch>
+
+          <SchedulePopUp />
+        </SchedulePopUpProvider>
+      </ApiProvider>
+      <CancelShift />
+    </Wrapper>
+  </BrowserRouter>
 ))
 
 export default App
