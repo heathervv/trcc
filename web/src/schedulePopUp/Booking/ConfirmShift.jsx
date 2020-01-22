@@ -1,9 +1,9 @@
 import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import config from '../config'
-import { Button, BookShiftButton } from './CommonComponents'
-import { ApiContext } from '../api/ApiContext'
+import config from '../../config'
+import { Button, MainActionButton } from '../CommonComponents'
+import { ApiContext } from '../../api/ApiContext'
 
 const Confirm = styled.div`
   margin-top: 20px;
@@ -66,7 +66,7 @@ const ScheduleShift = memo(({
         <Item><Bold>Selected counsellor:</Bold> {selectedCounsellorsName}</Item>
       </List>
       <ButtonWrapper>
-        <BookShiftButton onClick={bookShift}>I confirm</BookShiftButton>
+        <MainActionButton onClick={bookShift}>I confirm</MainActionButton>
         <Button onClick={changeVisibility}>Cancel</Button>
       </ButtonWrapper>
     </Confirm>

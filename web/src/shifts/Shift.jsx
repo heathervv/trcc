@@ -1,14 +1,41 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
+import styled from 'styled-components'
 import config from '../config'
-import { ApiConsumer } from '../api/ApiContext'
+import { ApiContext } from '../api/ApiContext'
 import { ShiftWrapper, Name, Time, Unfilled } from './CommonComponents'
 
-const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
+const FilledShift = styled.button`
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`
+
+const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift }) => {
+  const apiContext = useContext(ApiContext)
+
   const unFilledShift = () => (
     <Unfilled onClick={() => addCounsellorToShift(shiftTime)}>name</Unfilled>
   )
 
-  const counsellorsOnShift = (listOfAllCounsellors) => {
+  const filledShift = (counsellorId, counsellorDuration) => {
+    const counsellorName = apiContext.listOfAllCounsellors.find((x) => x.id === counsellorId).name
+
+    // TODO: Make this actually dynamic
+    if ('admin') {
+      return (
+        <FilledShift onClick={() => removeCounsellorFromShift(counsellorId, shiftTime, counsellorDuration)}>{counsellorName}</FilledShift>
+      )
+    }
+
+    return counsellorName
+  }
+
+  const counsellorsOnShift = () => {
     if (!counsellors) return (unFilledShift())
 
     const totalHoursForShift = 8
@@ -19,17 +46,17 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
       const timeOnShift = counsellor.duration
 
       if (timeOnShift === totalHoursForShift) {
-        slots[0] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
+        slots[0] = filledShift(counsellor.id, counsellor.duration)
         slots.pop()
       } else if (counsellor.half === config.SHIFT_HALFS.FIRST) {
-        slots[0] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
+        slots[0] = filledShift(counsellor.id, counsellor.duration)
       } else {
-        slots[1] = listOfAllCounsellors.find((x) => x.id === counsellor.id).name
+        slots[1] = filledShift(counsellor.id, counsellor.duration)
       }
     }
 
     return slots.map((slot, i) => (
-      <Fragment key={slot}>
+      <Fragment key={`${slot}-${i}`}>
         {i > 0 && "/"}
         {slot}
       </Fragment>
@@ -37,14 +64,10 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift }) => {
   }
 
   return (
-    <ApiConsumer>
-      {({ listOfAllCounsellors }) => (
-        <ShiftWrapper key={shiftTime}>
-          <Name>{counsellorsOnShift(listOfAllCounsellors)}</Name>
-          <Time>{shiftTime}</Time>
-        </ShiftWrapper>
-      )}
-    </ApiConsumer>
+    <ShiftWrapper key={shiftTime}>
+      <Name>{counsellorsOnShift()}</Name>
+      <Time>{shiftTime}</Time>
+    </ShiftWrapper>
   )
 }
 

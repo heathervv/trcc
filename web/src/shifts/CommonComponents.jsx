@@ -16,6 +16,7 @@ export const Unfilled = styled.button`
   background: yellow;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1;
   appearance: none;
   padding: 0;
   border: 0;

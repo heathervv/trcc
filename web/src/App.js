@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import styled from 'styled-components'
 import Calendar from './calendar'
 import { ApiProvider } from './api/ApiContext'
-import { PopUpProvider } from './popUp/PopUpContext'
-import PopUp from './popUp'
+import { SchedulePopUpProvider } from './schedulePopUp/SchedulePopUpContext'
+import SchedulePopUp from './schedulePopUp'
 import CancelShift from './CancelShift'
 
 const Wrapper = styled.div`
@@ -18,10 +18,10 @@ const Wrapper = styled.div`
 const App = memo(() => (
   <Wrapper>
     <ApiProvider>
-      <PopUpProvider>
+      <SchedulePopUpProvider>
         <Calendar />
-        <PopUp />
-      </PopUpProvider>
+        <SchedulePopUp />
+      </SchedulePopUpProvider>
     </ApiProvider>
     <CancelShift />
   </Wrapper>

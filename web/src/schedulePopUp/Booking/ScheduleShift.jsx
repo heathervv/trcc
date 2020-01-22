@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, BookShiftButton } from './CommonComponents'
+import { Button, MainActionButton } from '../CommonComponents'
 
 const Wrapper = styled.div`
   text-align: center;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const ScheduleShift = ({ changeVisibility, validateRequestedShiftDetails, disableButtons }) => (
   <Wrapper>
-    <BookShiftButton onClick={validateRequestedShiftDetails} disabled={disableButtons}>Book shift</BookShiftButton>
+    <MainActionButton onClick={validateRequestedShiftDetails} disabled={disableButtons}>Book shift</MainActionButton>
     <Button onClick={changeVisibility} disabled={disableButtons}>Cancel</Button>
   </Wrapper>
 )

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   padding: 25px 45px;
   border-radius: 3px;
   border: 1px solid #000;
-  margin: 15px;
+  margin: 15px 15px 30px;
 `
 
 const Icon = styled.span`

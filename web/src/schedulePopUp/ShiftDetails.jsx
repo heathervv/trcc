@@ -45,8 +45,16 @@ const ShiftDetails = memo(({ selectedShift }) => {
       {
         selectedShift.counsellor &&
         <Item>
-          <Heading>Counsellor already scheduled:</Heading>
-          {selectedShift.counsellor.name} (4 hours)
+          <Heading>Scheduled counsellor:</Heading>
+          {selectedShift.counsellor.name}
+          &nbsp;
+          {
+            selectedShift.counsellor.duration ? (
+              `(${selectedShift.counsellor.duration} hours)`
+            ) : (
+              "(4 hours)"
+            )
+          }
         </Item>
       }
     </Wrapper>

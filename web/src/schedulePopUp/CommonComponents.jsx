@@ -14,7 +14,7 @@ export const Button = styled.button`
   }
 `
 
-export const BookShiftButton = styled(Button)`
+export const MainActionButton = styled(Button)`
   background: ${props => props.disabled ? '#ccc' : '#40C622'};
   padding: 12px 20px;
   text-decoration: none;
@@ -22,4 +22,10 @@ export const BookShiftButton = styled(Button)`
   &:hover {
     background: ${props => props.disabled ? '#ccc' : '#41B428'};
   }
+`
+
+export const Title = styled.h1`
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
 `
