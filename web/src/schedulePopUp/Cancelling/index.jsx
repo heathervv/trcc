@@ -1,11 +1,12 @@
 import React, { memo, useContext } from 'react'
-import { ApiContext } from '../../api/ApiContext'
+import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
 import {SchedulePopUpConsumer, SchedulePopUpContext} from '../SchedulePopUpContext'
-import { MainActionButton, Title } from '../CommonComponents'
+import { MainButton } from '../../components/Button'
+import Title from '../Title'
 import ShiftDetails from '../ShiftDetails'
 
 const SchedulePopUp = memo(() => {
-    const apiContext = useContext(ApiContext)
+    const apiContext = useContext(CounsellorApiContext)
     const schedulePopUpContext = useContext(SchedulePopUpContext)
 
     const cancelShift = () => {
@@ -23,7 +24,7 @@ const SchedulePopUp = memo(() => {
                 <>
                     <Title>Remove counsellor from shift</Title>
                     <ShiftDetails selectedShift={selectedShift} />
-                    <MainActionButton onClick={cancelShift}>Remove counsellor</MainActionButton>
+                    <MainButton onClick={cancelShift}>Remove counsellor</MainButton>
                 </>
             )}
         </SchedulePopUpConsumer>

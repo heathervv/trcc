@@ -2,8 +2,8 @@ import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import config from '../../config'
-import { Button, MainActionButton } from '../CommonComponents'
-import { ApiContext } from '../../api/ApiContext'
+import { Button, MainButton } from '../../components/Button'
+import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
 
 const Confirm = styled.div`
   margin-top: 20px;
@@ -46,7 +46,7 @@ const ScheduleShift = memo(({
   selectedTime,
   selectedCounsellor
 }) => {
-  const apiContext = useContext(ApiContext)
+  const apiContext = useContext(CounsellorApiContext)
 
   // Turn shift into Title case
   const formattedShift = `${scheduledShift.shift.charAt(0)}${scheduledShift.shift.substr(1).toLowerCase()}`
@@ -66,7 +66,7 @@ const ScheduleShift = memo(({
         <Item><Bold>Selected counsellor:</Bold> {selectedCounsellorsName}</Item>
       </List>
       <ButtonWrapper>
-        <MainActionButton onClick={bookShift}>I confirm</MainActionButton>
+        <MainButton onClick={bookShift}>I confirm</MainButton>
         <Button onClick={changeVisibility}>Cancel</Button>
       </ButtonWrapper>
     </Confirm>

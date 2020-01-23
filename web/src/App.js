@@ -1,9 +1,11 @@
 import React, { memo } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
+import AuthenticatedRoute from './AuthenticatedRoute'
 import Calendar from './calendar'
-import { ApiProvider } from './api/ApiContext'
+import { CounsellorApiProvider } from './counsellorApi/CounsellorApiContext'
 import { SchedulePopUpProvider } from './schedulePopUp/SchedulePopUpContext'
+import Login from './auth/Login'
 import SchedulePopUp from './schedulePopUp'
 import CancelShift from './CancelShift'
 
@@ -16,28 +18,34 @@ const Wrapper = styled.div`
   }
 `
 
-// TODO: - setup login flow for /admin flow (stub out backend for now)
-// - Create API that will validate authentication
+const AuthCalendar = () => (
+  <>
+    <Calendar isAuthenticated />
+    <CancelShift />
+    <SchedulePopUp />
+  </>
+)
 
 const App = memo(() => (
   <BrowserRouter>
     <Wrapper>
-      <ApiProvider>
+      <CounsellorApiProvider>
         <SchedulePopUpProvider>
-
           <Switch>
-            <Route path="/admin">
-              <Calendar isAuthenticated />
+            <Route path="/login">
+              <Login />
             </Route>
+
+            <AuthenticatedRoute exact path="/admin" component={AuthCalendar} />
+
             <Route path="/">
               <Calendar />
+              <CancelShift />
+              <SchedulePopUp />
             </Route>
           </Switch>
-
-          <SchedulePopUp />
         </SchedulePopUpProvider>
-      </ApiProvider>
-      <CancelShift />
+      </CounsellorApiProvider>
     </Wrapper>
   </BrowserRouter>
 ))

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ApiClient from './index'
 
-export const ApiContext = React.createContext()
+export const CounsellorApiContext = React.createContext()
 
-export class ApiProvider extends Component {
+export class CounsellorApiProvider extends Component {
   constructor() {
     super()
 
@@ -51,7 +51,7 @@ export class ApiProvider extends Component {
 
   render() {
     return (
-      <ApiContext.Provider
+      <CounsellorApiContext.Provider
         value={{
           scheduledShifts: this.state.shifts,
           scheduleNewShift: this.scheduleNewShift,
@@ -62,9 +62,9 @@ export class ApiProvider extends Component {
         }}
       >
         {this.props.children}
-      </ApiContext.Provider>
+      </CounsellorApiContext.Provider>
     )
   }
 }
 
-export const ApiConsumer = ApiContext.Consumer
+export const CounsellorApiConsumer = CounsellorApiContext.Consumer

@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react'
 import styled from 'styled-components'
 import config from '../config'
-import { ApiContext } from '../api/ApiContext'
+import { CounsellorApiContext } from '../counsellorApi/CounsellorApiContext'
 import { ShiftWrapper, Name, Time, Unfilled } from './CommonComponents'
 
 const FilledShift = styled.button`
@@ -16,7 +16,7 @@ const FilledShift = styled.button`
 `
 
 const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift, isAuthenticated }) => {
-  const apiContext = useContext(ApiContext)
+  const apiContext = useContext(CounsellorApiContext)
 
   const unFilledShift = () => (
     <Unfilled onClick={() => addCounsellorToShift(shiftTime)}>name</Unfilled>

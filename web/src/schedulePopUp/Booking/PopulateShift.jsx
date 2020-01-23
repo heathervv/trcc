@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import styled from 'styled-components'
 import config from '../../config'
-import { ApiConsumer } from '../../api/ApiContext'
+import { CounsellorApiConsumer } from '../../counsellorApi/CounsellorApiContext'
 
 const Label = styled.label`
   display: block;
@@ -44,7 +44,7 @@ const PopulateShift = memo(({
   }, [changeTime, changeCounsellor])
 
   return (
-    <ApiConsumer>
+    <CounsellorApiConsumer>
       {({ listOfAllCounsellors }) => (
         <div>
           <Label htmlFor="counsellor_list">Select counsellor:</Label>
@@ -108,7 +108,7 @@ const PopulateShift = memo(({
           </fieldset>
         </div>
       )}
-    </ApiConsumer>
+    </CounsellorApiConsumer>
   )
 })
 

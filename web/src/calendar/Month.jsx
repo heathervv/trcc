@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import { ApiConsumer } from '../api/ApiContext'
+import { CounsellorApiConsumer } from '../counsellorApi/CounsellorApiContext'
 import Day from './Day'
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ class Month extends Component {
     const daysInMonth = [...Array(totalDaysInMonth).keys()]
 
     return (
-      <ApiConsumer>
+      <CounsellorApiConsumer>
         {({ scheduledShifts }) => (
           <Wrapper>
             {
@@ -58,7 +58,7 @@ class Month extends Component {
             }
           </Wrapper>
         )}
-      </ApiConsumer>
+      </CounsellorApiConsumer>
     )
   }
 }

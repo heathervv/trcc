@@ -1,3 +1,5 @@
+// TODO connect the counsellor api to a real API and fix all these faked out functions
+
 import config from '../config'
 import TEMP_DATA from './dummy_data.json'
 import TEMP_COUNSELLORS from './dummy_counsellors.json'
@@ -65,7 +67,6 @@ const scheduleNewShift = (alreadyScheduledShifts, date, shift, counsellor) => {
 }
 
 const removeCounsellorFromShift = (scheduledShifts, date, shift, counsellor) => {
-  // TODO this won't actually work until we hook it up to a backend (which is currently nonexistent)
   const dateToChange = scheduledShifts.find((d) => d.date === date)
   const shiftToChange = dateToChange.shifts.find((s) => s.shift === shift)
   const counsellorToRemove = shiftToChange.counsellors.find((c) => c.id === counsellor.id)

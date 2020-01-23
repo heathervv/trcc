@@ -1,9 +1,9 @@
 import React, { memo, useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import config from '../../config'
-import { ApiContext } from '../../api/ApiContext'
+import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
 import { SchedulePopUpContext, SchedulePopUpConsumer } from '../SchedulePopUpContext'
-import { Title } from '../CommonComponents'
+import Title from '../Title'
 import ShiftDetails from '../ShiftDetails'
 import PopulateShift from './PopulateShift'
 import ScheduleShift from './ScheduleShift'
@@ -29,7 +29,7 @@ const ErrorMessage = styled.p`
 `
 
 const BookingFlow = memo(() => {
-    const apiContext = useContext(ApiContext)
+    const apiContext = useContext(CounsellorApiContext)
     const schedulePopUpContext = useContext(SchedulePopUpContext)
 
     const [errorMessage, setErrorMessage] = useState('')

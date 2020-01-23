@@ -1,12 +1,12 @@
 import React, { memo, useContext } from 'react'
 import config from '../config'
-import { ApiContext } from '../api/ApiContext'
+import { CounsellorApiContext } from '../counsellorApi/CounsellorApiContext'
 import { SchedulePopUpContext } from '../schedulePopUp/SchedulePopUpContext'
 import NoShiftsFilled from './NoShiftsFilled'
 import Shift from './Shift'
 
 const Shifts = memo(({ filledShifts, date, isAuthenticated }) => {
-  const apiContext = useContext(ApiContext)
+  const apiContext = useContext(CounsellorApiContext)
   const schedulePopUpContext = useContext(SchedulePopUpContext)
 
   const addCounsellorToShift = (shiftTime) => {

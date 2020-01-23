@@ -33,6 +33,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 /* make sure to set some focus styles for accessibility */
 :focus {
     outline: 0;
