@@ -1,14 +1,11 @@
-var express = require("express")
-var routes = express()
+const express = require("express")
+const routes = express()
+
+const AuthMiddleware = require('./middleware/Auth')
+const AuthController = require('./auth/AuthController')
 
 routes.listen(3001)
 
-routes.get('/api/auth/login', (req, res) => {
-  // TODO()
-  res.send("logging user in")
-})
+routes.get('/api/auth/login', AuthMiddleware.exists, AuthController.login)
 
-routes.get('/api/auth', (req, res) => {
-  // TODO()
-  res.send("validating user auth")
-})
+routes.get('/api/auth', AuthMiddleware.exists, AuthController.validateAuth)
