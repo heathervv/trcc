@@ -9,20 +9,18 @@ export const login = (username, password) => {
     .then((response) => {
       console.log('we logged the user in!', response)
 
-      localStorage.setItem("username", username)
-      localStorage.setItem("password", password)
+      localStorage.setItem("token", response)
 
       return response
     })
 }
 
 export const validateAuth = () => {
-  const username = localStorage.getItem("username")
-  const password = localStorage.getItem("password")
+  const token = localStorage.getItem("user-token")
 
-  if (username && password) {
+  if (token) {
     let headers = new Headers()
-    headers.set('Authorization', `Basic ${btoa(`${username}:${password}`)}`)
+    headers.set('user-token', token)
 
     return fetch(`/api/auth`, {
       method: "GET",

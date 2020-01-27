@@ -1,4 +1,4 @@
-const exists  = (req, res, next) => {
+const authHeaderExists  = (req, res, next) => {
   const authHeader = req.headers['authorization']
 
   if (!authHeader) {
@@ -9,12 +9,12 @@ const exists  = (req, res, next) => {
   const auth = new Buffer.from(token, 'base64').toString() || ''
   const parts = auth.split(/:/) || []
 
-  res.username = parts[0]
-  res.password = parts[1]
+  req.username = parts[0]
+  req.password = parts[1]
 
   next()
 }
 
 module.exports = {
-  exists
+  authHeaderExists
 }
