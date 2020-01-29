@@ -1,28 +1,53 @@
 const uuid = require('uuid/v4')
+const dbQueries = require('../db/dbQueries')
 
-const login = (req, res) => {
-  // TODO() check auth should be abstracted to DB
-  if (req.username !== 'username' || req.password !== 'password') {
-    res.status(401).send()
+const authHeaderExists  = (req, res, next) => {
+  const authHeader = req.headers['authorization']
+
+  if (!authHeader) {
+    return res.status(401).send()
   }
 
-  const token = uuid()
+  const token = authHeader.split(/\s+/).pop() || ''
+  const auth = new Buffer.from(token, 'base64').toString() || ''
+  const parts = auth.split(/:/) || []
 
-  // TODO() save token to db
+  req.username = parts[0]
+  req.password = parts[1]
 
-  res.send(token)
+  return next()
+}
+
+const login = async (req, res) => {
+  const result = await dbQueries.findUserByCredentials(req.username, req.password)
+    .then(() => {
+      const token = uuid()
+
+      dbQueries.storeUserSession(req.username, req.password, token)
+
+      return token
+    })
+    .catch(() => {
+      res.status(401)
+
+      return
+    })
+
+  res.send(result)
 }
 
 const validateAuth = (req, res) => {
-  // TODO() check token against DB (it both exists and is correct)
-  if (!req.headers['user-token']) {
+  const token = req.headers['user-token']
+
+  if (!token || !dbQueries.findUserByToken(token)) {
     res.status(401).send()
   }
 
-  res.send('successfully logged in still!')
+  res.send()
 }
 
 module.exports = {
+  authHeaderExists,
   login,
   validateAuth
 }
