@@ -7,16 +7,21 @@ export const login = (username, password) => {
     headers
   })
     .then((response) => {
-      console.log('we logged the user in!', response)
+      if (response.status >= 400) { throw response }
 
-      localStorage.setItem("token", response)
-
-      return response
+      return response.json()
     })
+    .then((parsedResponse) => {
+      localStorage.setItem("token", parsedResponse)
+
+      return parsedResponse.body
+    })
+    .catch((err) => { throw err })
 }
 
 export const validateAuth = () => {
-  const token = localStorage.getItem("user-token")
+  const token = localStorage.getItem("token")
+
 
   if (token) {
     let headers = new Headers()
@@ -27,10 +32,11 @@ export const validateAuth = () => {
       headers
     })
       .then((response) => {
-        console.log('user is in fact logged in!', response)
+        if (response.status >= 400) { throw response }
 
         return response
       })
+      .catch((err) => { throw err })
   }
 
   return false

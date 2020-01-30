@@ -65,7 +65,7 @@ const Login = ({ history }) => {
 
   const submitLogin = () => {
     login(username, password)
-      .then(() => {
+      .then((response) => {
         updateUsername('')
         updatePassword('')
 

@@ -23,17 +23,16 @@ const login = async (req, res) => {
     .then(() => {
       const token = uuid()
 
+      // TODO() add session to token? (should it expire?)
       dbQueries.storeUserSession(req.username, req.password, token)
 
       return token
     })
     .catch(() => {
       res.status(401)
-
-      return
     })
 
-  res.send(result)
+  res.json(result)
 }
 
 const validateAuth = (req, res) => {

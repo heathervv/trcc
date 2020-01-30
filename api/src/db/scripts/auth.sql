@@ -12,6 +12,5 @@ CREATE TABLE users (
   token VARCHAR UNIQUE
 );
 
--- TODO use environment variables
-INSERT INTO users (username, password)
-  VALUES ('laura', crypt('fake-password', gen_salt('bf')));
+--INSERT INTO users (username, password)
+--  VALUES ('username', crypt('password', gen_salt('bf')));
