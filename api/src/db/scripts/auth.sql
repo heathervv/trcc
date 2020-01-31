@@ -12,5 +12,5 @@ CREATE TABLE users (
   token VARCHAR UNIQUE
 );
 
---INSERT INTO users (username, password)
---  VALUES ('username', crypt('password', gen_salt('bf')));
+INSERT INTO users (username, password)
+  VALUES ('EXAMPLE_USERNAME', crypt('EXAMPLE_PASSWORD', gen_salt('bf')));

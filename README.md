@@ -1,3 +1,24 @@
+# Working with this app
+
+## Setting up the API
+This is the `api` folder.
+
+1. You will need Postgres installed on your system.
+2. Create an `.env` file based off `.env.example`. 
+3. Run all scripts located in `api/src/db/scripts` to initialize the DB.
+    - These scripts populate the DB with dummy data. Update those values as necessary. 
+    
+## Setting up the App
+This is the `web` folder.
+
+1. Run `npm install`. 
+
+## Running locally
+2. In `api` folder run `npm run start`. API will run on port 3001.
+3. In `web` folder run `npm run start`. App will run on port 3000.
+
+---
+
 # TRCC initial wishlist
 - Calendar UI (title, days per week)
 - Show correct dates per month
