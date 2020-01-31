@@ -22,7 +22,7 @@ const Form = styled.div`
 `
 
 const Block = styled.div`
-  margin: 5px;
+  margin: 5px 0;
 `
 
 const Heading = styled.h1`

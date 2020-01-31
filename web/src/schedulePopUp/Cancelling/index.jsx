@@ -1,9 +1,14 @@
 import React, { memo, useContext } from 'react'
+import styled from 'styled-components'
 import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
 import { SchedulePopUpConsumer, SchedulePopUpContext } from '../SchedulePopUpContext'
 import { MainButton } from '../../components/Button'
 import Title from '../Title'
 import ShiftDetails from '../ShiftDetails'
+
+const DetailsWrapper = styled.div`
+ margin: 15px 0;
+`
 
 const SchedulePopUp = memo(() => {
   const apiContext = useContext(CounsellorApiContext)
@@ -23,7 +28,9 @@ const SchedulePopUp = memo(() => {
       {({selectedShift}) => (
         <>
           <Title>Remove counsellor from shift</Title>
-          <ShiftDetails selectedShift={selectedShift}/>
+          <DetailsWrapper>
+            <ShiftDetails selectedShift={selectedShift}/>
+          </DetailsWrapper>
           <MainButton onClick={cancelShift}>Remove counsellor</MainButton>
         </>
       )}

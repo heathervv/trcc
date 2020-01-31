@@ -41,7 +41,7 @@ This is the `web` folder.
 6. ~~Add admin user who can remove counsellors without DB connection~~
 7. Add web EBU logic (admin is only one who can add them?)
 8. ~~UI for "need to remove a shift? email." flow~~
-9. Improve styles (color palette, font sizes, etc)
+9. ~~Improve styles (color palette, font sizes, etc)~~
 10. ~~Create auth API & connect it up (integrate DB with this?)~~
 11. Create counsellor API
 12. Stub out all unauthed endpoints for counsellor API
