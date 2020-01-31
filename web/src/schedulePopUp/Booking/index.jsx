@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import config from '../../config'
 import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
 import { SchedulePopUpContext, SchedulePopUpConsumer } from '../SchedulePopUpContext'
+import Error from '../../components/Error'
 import Title from '../Title'
 import ShiftDetails from '../ShiftDetails'
 import PopulateShift from './PopulateShift'
@@ -16,16 +17,6 @@ const PopUpDetails = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
-`
-
-const ErrorMessage = styled.p`
-  display: block;
-  width: 100%;
-  font-weight: 600;
-  background: rgba(255, 0, 0, .8);
-  padding: 7px;
-  border-radius: 3px;
-  margin-bottom: 10px;
 `
 
 const BookingFlow = memo(() => {
@@ -106,7 +97,7 @@ const BookingFlow = memo(() => {
 
                     {
                         errorMessage &&
-                        <ErrorMessage>{errorMessage}</ErrorMessage>
+                        <Error>{errorMessage}</Error>
                     }
 
                     <ScheduleShift

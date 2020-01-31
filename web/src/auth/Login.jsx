@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { MainButton } from '../components/Button'
 import { login } from '../auth/authApi'
+import Error from '../components/Error'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,16 +21,18 @@ const Form = styled.div`
   border-radius: 3px;
 `
 
+const Block = styled.div`
+  margin: 5px;
+`
+
 const Heading = styled.h1`
   font-size: 18px;
   font-weight: 600;
-  margin-left: 5px;
   margin-bottom: 15px;
 `
 
 const Field = styled.div`
   display: block;
-  margin: 5px;
 `
 
 const Label = styled.label`
@@ -51,19 +54,12 @@ const Input = styled.input`
   }
 `
 
-const Error = styled.p`
-  color: red;
-  font-weight: 600;
-  margin-left: 5px;
-  margin-bottom: 10px;
-`
-
 const Login = ({ history }) => {
   const [username, updateUsername] = useState('')
   const [password, updatePassword] = useState('')
   const [status, updateStatus] = useState(null)
 
-  const submitLogin = () => {
+  const submitLogin = useCallback(() => {
     login(username, password)
       .then((response) => {
         updateUsername('')
@@ -72,36 +68,58 @@ const Login = ({ history }) => {
         history.push('/admin')
       })
       .catch(() => {
+        updateUsername('')
+        updatePassword('')
         updateStatus('failed')
       })
+  }, [username, password, history])
+
+  const keyPressSubmit = (keyCode) => {
+    switch(keyCode) {
+      case 'Enter':
+        submitLogin()
+        break;
+      default:
+        break;
+    }
   }
 
   return (
     <Wrapper>
       <Form>
-        <Heading>Login</Heading>
-        <Field>
-          <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => updateUsername(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => updatePassword(e.target.value)}
-          />
-        </Field>
+        <Block>
+          <Heading>Login</Heading>
+        </Block>
+        <Block>
+          <Field>
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => updateUsername(e.target.value)}
+              onKeyPress={(e) => keyPressSubmit(e.key)}
+            />
+          </Field>
+        </Block>
+        <Block>
+          <Field>
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => updatePassword(e.target.value)}
+              onKeyPress={(e) => keyPressSubmit(e.key)}
+            />
+          </Field>
+        </Block>
 
         {
           status === 'failed' &&
-          <Error>Login failed! Please try again.</Error>
+          <Block>
+            <Error>Login failed! Please try again.</Error>
+          </Block>
         }
 
         <MainButton onClick={submitLogin}>Login</MainButton>
