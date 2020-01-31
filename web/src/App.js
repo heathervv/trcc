@@ -20,9 +20,9 @@ const Wrapper = styled.div`
 
 const AuthCalendar = () => (
   <>
-    <Calendar isAuthenticated />
-    <CancelShift />
-    <SchedulePopUp />
+    <Calendar isAuthenticated/>
+    <CancelShift/>
+    <SchedulePopUp/>
   </>
 )
 
@@ -33,15 +33,15 @@ const App = memo(() => (
         <SchedulePopUpProvider>
           <Switch>
             <Route path="/login">
-              <Login />
+              <Login/>
             </Route>
 
-            <AuthenticatedRoute exact path="/admin" component={AuthCalendar} />
+            <AuthenticatedRoute exact path="/admin" component={AuthCalendar}/>
 
             <Route path="/">
-              <Calendar />
-              <CancelShift />
-              <SchedulePopUp />
+              <Calendar/>
+              <CancelShift/>
+              <SchedulePopUp/>
             </Route>
           </Switch>
         </SchedulePopUpProvider>

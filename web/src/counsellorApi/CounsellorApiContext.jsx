@@ -39,14 +39,14 @@ export class CounsellorApiProvider extends Component {
     return counsellor
   }
 
-  findCounsellor = (counsellorId ) => {
+  findCounsellor = (counsellorId) => {
     return this.state.counsellors.find((counsellor) => counsellor.id === counsellorId)
   }
 
   removeCounsellorFromShift = (date, shift, counsellor) => {
     const updatedSchedule = ApiClient.removeCounsellorFromShift(this.state.shifts, date, shift, counsellor)
 
-    this.setState({ shifts: updatedSchedule })
+    this.setState({shifts: updatedSchedule})
   }
 
   render() {

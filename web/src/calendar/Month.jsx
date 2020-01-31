@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 class Month extends Component {
   render() {
-    const { isAuthenticated } = this.props
+    const {isAuthenticated} = this.props
 
     const firstDayOfMonth = parseInt(this.props.date.startOf("month").format("d"))
     const totalDaysInMonth = this.props.date.daysInMonth()
@@ -25,7 +25,7 @@ class Month extends Component {
           <Wrapper>
             {
               blankSpaces.map((space) => (
-                <Day key={`blank-${space}`} blank />
+                <Day key={`blank-${space}`} blank/>
               ))
             }
             {

@@ -30,11 +30,7 @@ const Option = styled.div`
 `
 
 const PopulateShift = memo(({
-  selectedCounsellor,
-  changeCounsellor,
-  selectedTime,
-  changeTime,
-  unavailableTimeBlocks
+  selectedCounsellor, changeCounsellor, selectedTime, changeTime, unavailableTimeBlocks
 }) => {
   useEffect(() => {
     return () => {
@@ -45,7 +41,7 @@ const PopulateShift = memo(({
 
   return (
     <CounsellorApiConsumer>
-      {({ listOfAllCounsellors }) => (
+      {({listOfAllCounsellors}) => (
         <div>
           <Label htmlFor="counsellor_list">Select counsellor:</Label>
           <Select id="counsellor_list" value={selectedCounsellor} onChange={(e) => changeCounsellor(e.target.value)}>

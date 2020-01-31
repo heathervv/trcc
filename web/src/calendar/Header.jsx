@@ -72,10 +72,10 @@ const Header = ({ date, changeActiveMonth }) => (
       </div>
       <Arrows>
         <Arrow title="Previous month" onClick={() => changeActiveMonth(-1)}>
-          <FontAwesomeIcon icon={faAngleLeft} size="lg" />
+          <FontAwesomeIcon icon={faAngleLeft} size="lg"/>
         </Arrow>
         <Arrow title="Next month" onClick={() => changeActiveMonth(1)}>
-          <FontAwesomeIcon icon={faAngleRight} size="lg" />
+          <FontAwesomeIcon icon={faAngleRight} size="lg"/>
         </Arrow>
       </Arrows>
     </TitleWrapper>

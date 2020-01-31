@@ -27,7 +27,11 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorF
 
     if (isAuthenticated) {
       return (
-        <FilledShift onClick={() => removeCounsellorFromShift(counsellorId, shiftTime, counsellorDuration)}>{counsellorName}</FilledShift>
+        <FilledShift
+          onClick={() => removeCounsellorFromShift(counsellorId, shiftTime, counsellorDuration)}
+        >
+          {counsellorName}
+        </FilledShift>
       )
     }
 

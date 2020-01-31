@@ -9,7 +9,7 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => {
     <Route {...rest} render={props => (
       isUserLoggedIn
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+        : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
     )}/>
   )
 }

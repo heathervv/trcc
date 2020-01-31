@@ -28,19 +28,20 @@ const Date = styled.p`
 
 const Day = memo(({ blank, filledShifts, date, isAuthenticated }) => {
   return (
-  <Wrapper blank={blank}>
-    {
-      date &&
-      <>
-        <Date>{date.format("D")}</Date>
-        <Shifts
-          filledShifts={filledShifts}
-          date={date}
-          isAuthenticated={isAuthenticated}
-        />
-      </>
-    }
-  </Wrapper>
-)})
+    <Wrapper blank={blank}>
+      {
+        date &&
+        <>
+          <Date>{date.format("D")}</Date>
+          <Shifts
+            filledShifts={filledShifts}
+            date={date}
+            isAuthenticated={isAuthenticated}
+          />
+        </>
+      }
+    </Wrapper>
+  )
+})
 
 export default Day

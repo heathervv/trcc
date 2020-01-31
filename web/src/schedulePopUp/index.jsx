@@ -51,12 +51,12 @@ const SchedulePopUp = memo(() => (
           isVisible &&
           <Wrapper>
             <Window>
-              <Close onClick={changeVisibility}><FontAwesomeIcon icon={faTimes} /></Close>
+              <Close onClick={changeVisibility}><FontAwesomeIcon icon={faTimes}/></Close>
               {
                 flow === FLOWS.ADD ? (
-                    <Booking />
+                  <Booking/>
                 ) : (
-                    <Cancelling />
+                  <Cancelling/>
                 )
               }
             </Window>

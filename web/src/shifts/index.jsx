@@ -26,7 +26,7 @@ const Shifts = memo(({ filledShifts, date, isAuthenticated }) => {
   }
 
   if (!filledShifts) {
-    return <NoShiftsFilled addCounsellorToShift={addCounsellorToShift} />
+    return <NoShiftsFilled addCounsellorToShift={addCounsellorToShift}/>
   }
 
   const overnightShift = filledShifts.shifts.find((shift) => shift.shift === "OVERNIGHT")

@@ -75,12 +75,12 @@ const Login = ({ history }) => {
   }, [username, password, history])
 
   const keyPressSubmit = (keyCode) => {
-    switch(keyCode) {
+    switch (keyCode) {
       case 'Enter':
         submitLogin()
-        break;
+      break;
       default:
-        break;
+      break;
     }
   }
 

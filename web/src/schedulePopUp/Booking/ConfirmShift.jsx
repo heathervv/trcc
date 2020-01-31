@@ -40,11 +40,7 @@ const ButtonWrapper = styled.div`
 `
 
 const ScheduleShift = memo(({
-  changeVisibility,
-  bookShift,
-  scheduledShift,
-  selectedTime,
-  selectedCounsellor
+  changeVisibility, bookShift, scheduledShift, selectedTime, selectedCounsellor
 }) => {
   const apiContext = useContext(CounsellorApiContext)
 
@@ -58,7 +54,9 @@ const ScheduleShift = memo(({
   return (
     <Confirm>
       <Header>Confirm shift</Header>
-      <Details>Before booking your shift, please confirm the details below are correct. If everything is correct, click "I confirm" to finish booking your shift.</Details>
+      <Details>
+        Before booking your shift, please confirm the details below are correct. If everything is correct, click  "I confirm" to finish booking your shift.
+      </Details>
       <List>
         <Item><Bold>Selected date:</Bold> {moment(scheduledShift.date).format('dddd, MMMM D, YYYY')}</Item>
         <Item><Bold>Selected shift:</Bold> {formattedShift} ({config.SHIFTS[scheduledShift.shift]})</Item>

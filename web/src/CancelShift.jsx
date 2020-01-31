@@ -24,8 +24,12 @@ const Title = styled.h2`
 
 const CancelShift = memo(() => (
   <Wrapper>
-    <Title><Icon><FontAwesomeIcon icon={faExclamationCircle} color="red" /></Icon> Need help?</Title>
-    <p>If you need help cancelling or rescheduling a shift, please email <a href="mailto:fakeemail@gmail.com">fakeemail@gmail.com</a> with the details.</p>
+    <Title>
+      <Icon><FontAwesomeIcon icon={faExclamationCircle} color="red"/></Icon> Need help?
+    </Title>
+    <p>
+      If you need help cancelling or rescheduling a shift, please email <a href="mailto:fakeemail@gmail.com">fakeemail@gmail.com</a> with the details.
+    </p>
   </Wrapper>
 ))
 
