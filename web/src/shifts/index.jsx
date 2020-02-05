@@ -29,9 +29,9 @@ const Shifts = memo(({ filledShifts, date, isAuthenticated }) => {
     return <NoShiftsFilled addCounsellorToShift={addCounsellorToShift}/>
   }
 
-  const overnightShift = filledShifts.shifts.find((shift) => shift.shift === "OVERNIGHT")
-  const dayShift = filledShifts.shifts.find((shift) => shift.shift === "DAY")
-  const eveningShift = filledShifts.shifts.find((shift) => shift.shift === "EVENING")
+  const overnightShift = filledShifts.find((shift) => shift.shift === "OVERNIGHT")
+  const dayShift = filledShifts.find((shift) => shift.shift === "DAY")
+  const eveningShift = filledShifts.find((shift) => shift.shift === "EVENING")
 
   return (
     <>

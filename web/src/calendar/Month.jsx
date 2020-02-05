@@ -37,7 +37,8 @@ class Month extends Component {
                   userFriendlyDayOfMonth = `0${userFriendlyDayOfMonth}`
                 }
 
-                const filledShiftsForTheDay = scheduledShifts.find((dayWithShifts) => {
+                // returns existing scheduled day OR undefined at this point
+                const possibleScheduledPeople = scheduledShifts.find((dayWithShifts) => {
                   const parsedDate = moment(dayWithShifts.date)
 
                   const matchingMonth = parsedDate.format("M") === this.props.date.format("M")
@@ -50,7 +51,7 @@ class Month extends Component {
                   <Day
                     key={`actual-${userFriendlyDayOfMonth}`}
                     date={moment(`${this.props.date.format("YYYY-MM")}-${userFriendlyDayOfMonth}`)}
-                    filledShifts={filledShiftsForTheDay}
+                    possibleScheduledPeople={possibleScheduledPeople}
                     isAuthenticated={isAuthenticated}
                   />
                 )

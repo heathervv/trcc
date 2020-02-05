@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 import Shifts from '../shifts'
+import Ebu from "../ebu"
 
 const Wrapper = styled.div`
   border-top: 1px solid #000;
@@ -20,21 +21,32 @@ const Wrapper = styled.div`
   }
 `
 
+const DayHeader = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const Date = styled.p`
   font-size: 12px;
   font-weight: 600;
   padding: 5px;
 `
 
-const Day = memo(({ blank, filledShifts, date, isAuthenticated }) => {
+const Day = memo(({ blank, possibleScheduledPeople, date, isAuthenticated }) => {
   return (
     <Wrapper blank={blank}>
       {
         date &&
         <>
-          <Date>{date.format("D")}</Date>
+          <DayHeader>
+            <Date>{date.format("D")}</Date>
+            {
+              possibleScheduledPeople &&
+              <Ebu people={possibleScheduledPeople.ebus} />
+            }
+          </DayHeader>
           <Shifts
-            filledShifts={filledShifts}
+            filledShifts={possibleScheduledPeople ? possibleScheduledPeople.shifts : null}
             date={date}
             isAuthenticated={isAuthenticated}
           />
