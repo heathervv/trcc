@@ -1,12 +1,19 @@
 [
   {
-    "date": "2020-01-05",
+    "date": "2020-02-05",
+    "ebus": [
+      {
+        "id": 1,
+        "name": "ebu 1"
+      }
+    ],
     "shifts": [
       {
         "shift": "OVERNIGHT",
         "counsellors": [
           {
             "id": 6,
+            "name": "counsellor 6",
             "duration": 4,
             "half": "first"
           }
@@ -17,6 +24,7 @@
         "counsellors": [
           {
             "id": 1,
+            "name": "counsellor 1",
             "duration": 8
           }
         ]
@@ -26,11 +34,13 @@
         "counsellors": [
           {
             "id": 2,
+            "name": "counsellor 2",
             "duration": 4,
             "half": "first"
           },
           {
             "id": 3,
+            "name": "counsellor 3",
             "duration": 4,
             "half": "second"
           }
@@ -39,13 +49,24 @@
     ]
   },
   {
-    "date": "2020-01-16",
+    "date": "2020-02-16",
+    "ebus": [
+      {
+        "id": 1,
+        "name": "ebu 1"
+      },
+      {
+        "id": 2,
+        "name": "ebu 2"
+      }
+    ],
     "shifts": [
       {
         "shift": "DAY",
         "counsellors": [
           {
             "id": 5,
+            "name": "counsellor 5",
             "duration": 4,
             "half": "second"
           }
@@ -56,6 +77,7 @@
         "counsellors": [
           {
             "id": 4,
+            "name": "counsellor 4",
             "duration": 8
           }
         ]

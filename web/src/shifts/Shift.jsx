@@ -1,7 +1,6 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import config from '../config'
-import { CounsellorApiContext } from '../counsellorApi/CounsellorApiContext'
 import { ShiftWrapper, Name, Time, Unfilled } from './CommonComponents'
 
 const FilledShift = styled.button`
@@ -16,26 +15,22 @@ const FilledShift = styled.button`
 `
 
 const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift, isAuthenticated }) => {
-  const apiContext = useContext(CounsellorApiContext)
-
   const unFilledShift = () => (
     <Unfilled onClick={() => addCounsellorToShift(shiftTime)}>name</Unfilled>
   )
 
-  const filledShift = (counsellorId, counsellorDuration) => {
-    const counsellorName = apiContext.listOfAllCounsellors.find((x) => x.id === counsellorId).name
-
+  const filledShift = (counsellor) => {
     if (isAuthenticated) {
       return (
         <FilledShift
-          onClick={() => removeCounsellorFromShift(counsellorId, shiftTime, counsellorDuration)}
+          onClick={() => removeCounsellorFromShift(counsellor.id, shiftTime, counsellor.duration)}
         >
-          {counsellorName}
+          {counsellor.name}
         </FilledShift>
       )
     }
 
-    return counsellorName
+    return counsellor.name
   }
 
   const counsellorsOnShift = () => {
@@ -45,16 +40,13 @@ const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorF
     let slots = [unFilledShift(), unFilledShift()]
 
     for (let i = 0; i < counsellors.length; i++) {
-      const counsellor = counsellors[i]
-      const timeOnShift = counsellor.duration
-
-      if (timeOnShift === totalHoursForShift) {
-        slots[0] = filledShift(counsellor.id, counsellor.duration)
+      if (counsellors[i].duration === totalHoursForShift) {
+        slots[0] = filledShift(counsellors[i])
         slots.pop()
-      } else if (counsellor.half === config.SHIFT_HALFS.FIRST) {
-        slots[0] = filledShift(counsellor.id, counsellor.duration)
+      } else if (counsellors[i].half === config.SHIFT_HALFS.FIRST) {
+        slots[0] = filledShift(counsellors[i])
       } else {
-        slots[1] = filledShift(counsellor.id, counsellor.duration)
+        slots[1] = filledShift(counsellors[i])
       }
     }
 

@@ -9,6 +9,7 @@ const getScheduledShifts = () => {
 }
 
 const generateCounsellorsOnShift = (shift, counsellor, counsellors = null) => {
+  console.log(counsellor)
   const half = shift.half === config.SHIFT_STRINGS.FIRST_HALF.key ? config.SHIFT_HALFS.FIRST : config.SHIFT_HALFS.SECOND
 
   if (counsellors) {

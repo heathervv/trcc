@@ -27,12 +27,7 @@ export class CounsellorApiProvider extends Component {
       const selectedShiftHasCounsellors = selectedDateHasShifts.shifts.find((shiftWithCounsellor) => shiftWithCounsellor.shift === shift)
 
       if (selectedShiftHasCounsellors) {
-        const scheduledCounsellor = selectedShiftHasCounsellors.counsellors[0]
-
-        counsellor = {
-          name: this.state.counsellors.find((x) => x.id === scheduledCounsellor.id).name,
-          half: scheduledCounsellor.half
-        }
+        counsellor = selectedShiftHasCounsellors.counsellors[0]
       }
     }
 
