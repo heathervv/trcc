@@ -21,6 +21,10 @@ export const Unfilled = styled.button`
   padding: 0;
   border: 0;
   cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 export const Time = styled.p`

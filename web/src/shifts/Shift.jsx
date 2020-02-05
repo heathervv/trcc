@@ -12,6 +12,10 @@ const FilledShift = styled.button`
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 const Shift = ({ shiftTime, counsellors, addCounsellorToShift, removeCounsellorFromShift, isAuthenticated }) => {
