@@ -33,8 +33,6 @@ const Date = styled.p`
 `
 
 const Day = memo(({ blank, possibleScheduledPeople, date, isAuthenticated }) => {
-  // TODO() if authenticated show EBU option for all days (either scheduled EBUs or something to schedule someone)
-
   return (
     <Wrapper blank={blank}>
       {
@@ -42,14 +40,10 @@ const Day = memo(({ blank, possibleScheduledPeople, date, isAuthenticated }) => 
         <>
           <DayHeader>
             <Date>{date.format("D")}</Date>
-            {
-              possibleScheduledPeople &&
-              possibleScheduledPeople.ebus &&
-              <Ebu
-                people={possibleScheduledPeople.ebus}
-                isAuthenticated={isAuthenticated}
-              />
-            }
+            <Ebu
+              people={possibleScheduledPeople ? possibleScheduledPeople.ebus : null}
+              isAuthenticated={isAuthenticated}
+            />
           </DayHeader>
           <Shifts
             filledShifts={possibleScheduledPeople ? possibleScheduledPeople.shifts : null}

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import config from '../config'
-import { ShiftWrapper, Name, Time, Unfilled } from './CommonComponents'
+import { ShiftWrapper, Name, Time } from './CommonComponents'
+import { Unfilled } from '../components/UnfilledShift'
 
 const FilledShift = styled.button`
   appearance: none;

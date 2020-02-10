@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
+import { Unfilled } from '../components/UnfilledShift'
 
 const Copy = styled.p`
   font-size: 14px;
@@ -24,28 +25,42 @@ const CopyAsAButton = styled.button`
 `
 
 const Ebu = ({ people, isAuthenticated }) => {
-  const updateScheduledEbu = (personId) => {
-    // TODO(): Cancel pop-up should show up now
+  const cancelShift = (personId) => {
+    // TODO() open cancel popup
     console.log('You clicked on an ebu with the id:', personId)
+  }
+
+  const bookShift = () => {
+    // TODO() open schedule popup
+    console.log('You want to book an ebu shift')
   }
 
   if (isAuthenticated) {
     return (
       <>
         {
-          people.map((person, i) => (
-            <Fragment key={person.id}>
-              { i !== 0 && <Copy>/</Copy>}
-              <CopyAsAButton onClick={() => updateScheduledEbu(person.id)}>{person.name}</CopyAsAButton>
-            </Fragment>
-          ))
+          people ? (
+            people.map((person, i) => (
+              <Fragment key={person.id}>
+                { i !== 0 && <Copy>/</Copy>}
+                <CopyAsAButton onClick={() => cancelShift(person.id)}>{person.name}</CopyAsAButton>
+              </Fragment>
+            ))
+          ) : (
+            <Unfilled color="red" onClick={bookShift}>name</Unfilled>
+          )
         }
       </>
     )
   }
 
   return (
-    <Copy>{ people.map(person => person.name).join('/') }</Copy>
+    <>
+      {
+        people &&
+        <Copy>{people.map(person => person.name).join('/')}</Copy>
+      }
+    </>
   )
 }
 
