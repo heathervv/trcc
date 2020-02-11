@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { validateAuth } from './auth/authApi'
+import { validateAuth } from '../api/auth/authApi'
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => {
   const isUserLoggedIn = validateAuth()

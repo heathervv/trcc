@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import { CounsellorApiConsumer } from '../counsellorApi/CounsellorApiContext'
+import { CounsellorApiConsumer } from '../api/counsellors/CounsellorApiContext'
 import Day from './Day'
 
 const Wrapper = styled.div`

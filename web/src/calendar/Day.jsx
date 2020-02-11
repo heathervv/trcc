@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
-import Shifts from '../shifts'
+import Shifts from '../counsellors'
 import Ebu from "../ebu"
 
 const Wrapper = styled.div`

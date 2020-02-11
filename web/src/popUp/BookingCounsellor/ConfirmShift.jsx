@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import config from '../../config'
 import { Button, MainButton } from '../../components/Button'
-import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
+import { CounsellorApiContext } from '../../api/counsellors/CounsellorApiContext'
 
 const Confirm = styled.div`
   margin-top: 20px;

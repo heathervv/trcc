@@ -43,14 +43,14 @@ const ShiftDetails = memo(({ selectedShift }) => {
         {formattedShift} ({config.SHIFTS[selectedShift.shift]})
       </Item>
       {
-        selectedShift.counsellor &&
+        selectedShift.person &&
         <Item>
           <Heading>Scheduled counsellor:</Heading>
-          {selectedShift.counsellor.name}
+          {selectedShift.person.name}
           &nbsp;
           {
-            selectedShift.counsellor.duration ? (
-              `(${selectedShift.counsellor.duration} hours)`
+            selectedShift.person.duration ? (
+              `(${selectedShift.person.duration} hours)`
             ) : (
               "(4 hours)"
             )

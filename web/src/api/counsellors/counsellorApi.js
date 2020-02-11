@@ -1,6 +1,6 @@
 // TODO connect the counsellor api to a real API and fix all these faked out functions
 
-import config from '../config'
+import config from '../../config'
 import TEMP_DATA from './dummy_data.json'
 import TEMP_COUNSELLORS from './dummy_counsellors.json'
 

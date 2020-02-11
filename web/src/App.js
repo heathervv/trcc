@@ -1,13 +1,13 @@
 import React, { memo } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
-import AuthenticatedRoute from './AuthenticatedRoute'
+import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Calendar from './calendar'
-import { CounsellorApiProvider } from './counsellorApi/CounsellorApiContext'
-import { SchedulePopUpProvider } from './schedulePopUp/SchedulePopUpContext'
-import Login from './auth/Login'
-import SchedulePopUp from './schedulePopUp'
-import CancelShift from './CancelShift'
+import { CounsellorApiProvider } from './api/counsellors/CounsellorApiContext'
+import { PopUpProvider } from './popUp/PopUpContext'
+import Login from './api/auth/Login'
+import PopUp from './popUp'
+import CancelShift from './components/CancelShift'
 
 const Wrapper = styled.div`
   @media(min-width: 900px) {
@@ -22,7 +22,7 @@ const AuthCalendar = () => (
   <>
     <Calendar isAuthenticated/>
     <CancelShift/>
-    <SchedulePopUp/>
+    <PopUp/>
   </>
 )
 
@@ -30,7 +30,7 @@ const App = memo(() => (
   <BrowserRouter>
     <Wrapper>
       <CounsellorApiProvider>
-        <SchedulePopUpProvider>
+        <PopUpProvider>
           <Switch>
             <Route path="/login">
               <Login/>
@@ -41,10 +41,10 @@ const App = memo(() => (
             <Route path="/">
               <Calendar/>
               <CancelShift/>
-              <SchedulePopUp/>
+              <PopUp/>
             </Route>
           </Switch>
-        </SchedulePopUpProvider>
+        </PopUpProvider>
       </CounsellorApiProvider>
     </Wrapper>
   </BrowserRouter>

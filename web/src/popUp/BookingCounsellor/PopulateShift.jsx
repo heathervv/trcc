@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import styled from 'styled-components'
 import config from '../../config'
-import { CounsellorApiConsumer } from '../../counsellorApi/CounsellorApiContext'
+import { CounsellorApiConsumer } from '../../api/counsellors/CounsellorApiContext'
 
 const Label = styled.label`
   display: block;

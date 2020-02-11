@@ -1,10 +1,10 @@
 import React, { memo, useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import config from '../../config'
-import { CounsellorApiContext } from '../../counsellorApi/CounsellorApiContext'
-import { SchedulePopUpContext, SchedulePopUpConsumer } from '../SchedulePopUpContext'
+import { CounsellorApiContext } from '../../api/counsellors/CounsellorApiContext'
+import { PopUpContext, PopUpConsumer } from '../PopUpContext'
 import Error from '../../components/Error'
-import Title from '../Title'
+import { Title } from '../CommonComponents'
 import ShiftDetails from '../ShiftDetails'
 import PopulateShift from './PopulateShift'
 import ScheduleShift from './ScheduleShift'
@@ -19,9 +19,9 @@ const PopUpDetails = styled.div`
   }
 `
 
-const BookingFlow = memo(() => {
+const BookingCounsellor = memo(() => {
   const apiContext = useContext(CounsellorApiContext)
-  const schedulePopUpContext = useContext(SchedulePopUpContext)
+  const popUpContext = useContext(PopUpContext)
 
   const [errorMessage, setErrorMessage] = useState('')
   const [selectedCounsellor, changeCounsellor] = useState()
@@ -30,7 +30,7 @@ const BookingFlow = memo(() => {
   const [confirmBookShift, changeConfirmBookShift] = useState(false)
 
   useEffect(() => {
-    const counsellor = schedulePopUpContext.selectedShift.counsellor
+    const counsellor = popUpContext.counsellor.selectedShift.person
     const unavailableTimeBlocks = []
 
     if (counsellor) {
@@ -44,7 +44,7 @@ const BookingFlow = memo(() => {
     }
 
     setUnavailableTimeBlocks(unavailableTimeBlocks)
-  }, [schedulePopUpContext])
+  }, [popUpContext])
 
   useEffect(() => {
     changeConfirmBookShift(false)
@@ -66,26 +66,26 @@ const BookingFlow = memo(() => {
       setErrorMessage('')
       changeConfirmBookShift(false)
     }
-  }, [schedulePopUpContext])
+  }, [popUpContext])
 
   const bookShift = () => {
     const scheduledShift = {
-      shift: schedulePopUpContext.selectedShift.shift,
+      shift: popUpContext.counsellor.selectedShift.shift,
       duration: selectedTime === config.SHIFT_STRINGS.FULL.key ? 8 : 4,
       half: selectedTime !== config.SHIFT_STRINGS.FULL.key ? selectedTime : null
     }
 
-    apiContext.scheduleNewShift(schedulePopUpContext.selectedShift.date, scheduledShift, selectedCounsellor)
-    schedulePopUpContext.changeVisibility()
+    apiContext.scheduleNewShift(popUpContext.counsellor.selectedShift.date, scheduledShift, selectedCounsellor)
+    popUpContext.changeVisibility()
   }
 
   return (
-    <SchedulePopUpConsumer>
-      {({changeVisibility, selectedShift}) => (
+    <PopUpConsumer>
+      {({changeVisibility, counsellor}) => (
         <>
           <Title>Fill a shift</Title>
           <PopUpDetails>
-            <ShiftDetails selectedShift={selectedShift}/>
+            <ShiftDetails selectedShift={counsellor.selectedShift}/>
             <PopulateShift
               selectedCounsellor={selectedCounsellor}
               changeCounsellor={changeCounsellor}
@@ -111,15 +111,15 @@ const BookingFlow = memo(() => {
             <ConfirmShift
               changeVisibility={changeVisibility}
               bookShift={bookShift}
-              scheduledShift={selectedShift}
+              scheduledShift={counsellor.selectedShift}
               selectedTime={selectedTime}
               selectedCounsellor={selectedCounsellor}
             />
           }
         </>
       )}
-    </SchedulePopUpConsumer>
+    </PopUpConsumer>
   )
 })
 
-export default BookingFlow
+export default BookingCounsellor

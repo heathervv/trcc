@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react'
+import React, {Fragment, useContext} from 'react'
 import styled from 'styled-components'
 import { Unfilled } from '../components/UnfilledShift'
+import { PopUpContext } from "../popUp/PopUpContext"
 
 const Copy = styled.p`
   font-size: 14px;
@@ -25,14 +26,16 @@ const CopyAsAButton = styled.button`
 `
 
 const Ebu = ({ people, isAuthenticated }) => {
+  const popUpContext = useContext(PopUpContext)
+
   const cancelShift = (personId) => {
-    // TODO() open cancel popup
-    console.log('You clicked on an ebu with the id:', personId)
+    popUpContext.changeVisibility()
+    popUpContext.populatePopUpWithEbu(personId)
   }
 
   const bookShift = () => {
-    // TODO() open schedule popup
-    console.log('You want to book an ebu shift')
+    popUpContext.changeVisibility()
+    popUpContext.populatePopUpWithEbu()
   }
 
   if (isAuthenticated) {

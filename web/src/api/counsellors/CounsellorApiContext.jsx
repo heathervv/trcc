@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ApiClient from './index'
+import ApiClient from './counsellorApi'
 
 export const CounsellorApiContext = React.createContext()
 

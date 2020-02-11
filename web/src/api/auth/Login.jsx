@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { MainButton } from '../components/Button'
-import { login } from '../auth/authApi'
-import Error from '../components/Error'
+import { MainButton } from '../../components/Button'
+import { login } from './authApi'
+import Error from '../../components/Error'
 
 const Wrapper = styled.div`
   width: 100%;

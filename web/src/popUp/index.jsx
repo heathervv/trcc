@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { SchedulePopUpConsumer, FLOWS } from './SchedulePopUpContext'
-import Booking from './Booking'
+import { PopUpConsumer, FLOWS } from './PopUpContext'
+import BookingCounsellor from './BookingCounsellor'
 import Cancelling from './Cancelling'
 
 const Wrapper = styled.div`
@@ -43,9 +43,9 @@ const Close = styled.button`
   right: 10px;
 `
 
-const SchedulePopUp = memo(() => (
-  <SchedulePopUpConsumer>
-    {({ changeVisibility, isVisible, flow }) => (
+const PopUp = memo(() => (
+  <PopUpConsumer>
+    {({ changeVisibility, isVisible, counsellor, ebu }) => (
       <>
         {
           isVisible &&
@@ -53,18 +53,35 @@ const SchedulePopUp = memo(() => (
             <Window>
               <Close onClick={changeVisibility}><FontAwesomeIcon icon={faTimes}/></Close>
               {
-                flow === FLOWS.ADD ? (
-                  <Booking/>
-                ) : (
-                  <Cancelling/>
-                )
+                counsellor.selected &&
+                <>
+                  {
+                    counsellor.flow === FLOWS.ADD ? (
+                      <BookingCounsellor/>
+                    ) : (
+                      <Cancelling person={Cancelling.PERSON.COUNSELLOR}/>
+                    )
+                  }
+                </>
+              }
+              {
+                ebu.selected &&
+                <>
+                  {
+                    ebu.flow === FLOWS.ADD ? (
+                      <p>hi im an ebu</p>
+                    ) : (
+                      <Cancelling person={Cancelling.PERSON.EBU}/>
+                    )
+                  }
+                </>
               }
             </Window>
           </Wrapper>
         }
       </>
     )}
-  </SchedulePopUpConsumer>
+  </PopUpConsumer>
 ))
 
-export default SchedulePopUp
+export default PopUp
