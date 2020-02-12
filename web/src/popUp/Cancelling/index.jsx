@@ -1,8 +1,8 @@
 import React, { memo, useContext } from 'react'
 import styled from 'styled-components'
-import { CounsellorApiContext } from '../../api/counsellors/CounsellorApiContext'
+import { PeopleApiContext } from '../../api/people/PeopleApiContext'
 import { PopUpConsumer, PopUpContext } from '../PopUpContext'
-import { MainButton } from '../../components/Button'
+import {Button, MainButton} from '../../components/Button'
 import { Title } from '../CommonComponents'
 import ShiftDetails from '../ShiftDetails'
 
@@ -11,26 +11,27 @@ const DetailsWrapper = styled.div`
 `
 
 const Cancelling = memo(({ person }) => {
-  const apiContext = useContext(CounsellorApiContext)
+  const apiContext = useContext(PeopleApiContext)
   const popUpContext = useContext(PopUpContext)
 
   const cancelCounsellorShift = () => {
     apiContext.removeCounsellorFromShift(
       popUpContext.counsellor.selectedShift.date,
-      popUpContext.counsellor.selectedShift.shift,
+      popUpContext.counsellor.selectedShift.shift.name,
       popUpContext.counsellor.selectedShift.person
     )
     popUpContext.changeVisibility()
   }
 
   const cancelEbuShift = () => {
-    console.log('TODO() send call to API to remove EBU')
+    // TODO() send call to API to remove EBU
+    console.log('you attempted to cancel a shift... but it was ineffective!')
     popUpContext.changeVisibility()
   }
 
   return (
     <PopUpConsumer>
-      {({counsellor}) => (
+      {({changeVisibility, counsellor, ebu}) => (
         <>
           <Title>
             {
@@ -42,13 +43,9 @@ const Cancelling = memo(({ person }) => {
             }
           </Title>
           <DetailsWrapper>
-            {
-              person === Cancelling.PERSON.COUNSELLOR ? (
-                <ShiftDetails selectedShift={counsellor.selectedShift}/>
-              ) : (
-                <p>hi im an ebu</p>
-              )
-            }
+            <ShiftDetails
+              selectedShift={person === Cancelling.PERSON.COUNSELLOR ? counsellor.selectedShift : ebu.selectedShift}
+            />
           </DetailsWrapper>
           {
             person === Cancelling.PERSON.COUNSELLOR ? (
@@ -57,6 +54,7 @@ const Cancelling = memo(({ person }) => {
               <MainButton onClick={cancelEbuShift}>Remove EBU</MainButton>
             )
           }
+          <Button onClick={changeVisibility}>Cancel</Button>
         </>
       )}
     </PopUpConsumer>

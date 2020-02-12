@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import config from "../config";
 
 export const PopUpContext = React.createContext()
 
@@ -17,7 +18,7 @@ export class PopUpProvider extends Component {
         selected: false,
         selectedShift: {
           date: null,
-          shift: null,
+          shift: {},
           ebu: null
         },
         flow: FLOWS.ADD
@@ -26,7 +27,7 @@ export class PopUpProvider extends Component {
         selected: false,
         selectedShift: {
           date: null,
-          shift: null,
+          shift: {},
           person: null
         },
         flow: FLOWS.ADD
@@ -50,14 +51,21 @@ export class PopUpProvider extends Component {
     })
   }
 
-  populatePopUpWithEbu = (ebuId = null) => {
-    // TODO() this function is very bare bones.
+  populatePopUpWithEbu = (date, shift, ebu = null) => {
+    const selectedEbu = { ...ebu }
 
     this.setState({
       ebu: {
-        ...this.state.ebu,
         selected: true,
-        flow: ebuId ? FLOWS.REMOVE : FLOWS.ADD
+        selectedShift: {
+          date,
+          shift: {
+            name: shift,
+            time: config.EBU_SHIFTS[shift]
+          },
+          person: selectedEbu
+        },
+        flow: ebu ? FLOWS.REMOVE : FLOWS.ADD
       }
     })
   }
@@ -75,7 +83,10 @@ export class PopUpProvider extends Component {
         selected: true,
         selectedShift: {
           date,
-          shift,
+          shift: {
+            name: shift,
+            time: config.SHIFTS[shift]
+          },
           person: selectedCounsellor
         },
         flow: duration ? FLOWS.REMOVE : FLOWS.ADD

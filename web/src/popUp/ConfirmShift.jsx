@@ -1,9 +1,8 @@
-import React, { memo, useContext } from 'react'
+import React, { memo } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import config from '../../config'
-import { Button, MainButton } from '../../components/Button'
-import { CounsellorApiContext } from '../../api/counsellors/CounsellorApiContext'
+import config from '../config'
+import { Button, MainButton } from '../components/Button'
 
 const Confirm = styled.div`
   margin-top: 20px;
@@ -39,17 +38,11 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `
 
-const ScheduleShift = memo(({
+const ConfirmShift = memo(({
   changeVisibility, bookShift, scheduledShift, selectedTime, selectedCounsellor
 }) => {
-  const apiContext = useContext(CounsellorApiContext)
-
-  // Turn shift into Title case
-  const formattedShift = `${scheduledShift.shift.charAt(0)}${scheduledShift.shift.substr(1).toLowerCase()}`
-
   const correctTimeString = Object.keys(config.SHIFT_STRINGS).find((key) => config.SHIFT_STRINGS[key].key === selectedTime)
   const formattedTime = config.SHIFT_STRINGS[correctTimeString].value
-  const selectedCounsellorsName = apiContext.listOfAllCounsellors.find((counsellor) => counsellor.id === parseInt(selectedCounsellor)).name
 
   return (
     <Confirm>
@@ -59,9 +52,9 @@ const ScheduleShift = memo(({
       </Details>
       <List>
         <Item><Bold>Selected date:</Bold> {moment(scheduledShift.date).format('dddd, MMMM D, YYYY')}</Item>
-        <Item><Bold>Selected shift:</Bold> {formattedShift} ({config.SHIFTS[scheduledShift.shift]})</Item>
+        <Item><Bold>Selected shift:</Bold> {scheduledShift.shift.name} ({scheduledShift.shift.time})</Item>
         <Item><Bold>Selected time:</Bold> {formattedTime}</Item>
-        <Item><Bold>Selected counsellor:</Bold> {selectedCounsellorsName}</Item>
+        <Item><Bold>Selected counsellor:</Bold> {selectedCounsellor.name}</Item>
       </List>
       <ButtonWrapper>
         <MainButton onClick={bookShift}>I confirm</MainButton>
@@ -71,4 +64,4 @@ const ScheduleShift = memo(({
   )
 })
 
-export default ScheduleShift
+export default ConfirmShift

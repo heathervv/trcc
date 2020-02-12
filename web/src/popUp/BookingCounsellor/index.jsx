@@ -1,26 +1,16 @@
 import React, { memo, useState, useEffect, useContext } from 'react'
-import styled from 'styled-components'
 import config from '../../config'
-import { CounsellorApiContext } from '../../api/counsellors/CounsellorApiContext'
+import { PeopleApiContext, PeopleApiConsumer } from '../../api/people/PeopleApiContext'
 import { PopUpContext, PopUpConsumer } from '../PopUpContext'
 import Error from '../../components/Error'
-import { Title } from '../CommonComponents'
+import { Title, PopUpDetails } from '../CommonComponents'
 import ShiftDetails from '../ShiftDetails'
 import PopulateShift from './PopulateShift'
-import ScheduleShift from './ScheduleShift'
-import ConfirmShift from './ConfirmShift'
-
-const PopUpDetails = styled.div`
-  margin: 15px 0;
-
-  @media (min-width: 900px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-`
+import ScheduleShift from '../ScheduleShift'
+import ConfirmShift from '../ConfirmShift'
 
 const BookingCounsellor = memo(() => {
-  const apiContext = useContext(CounsellorApiContext)
+  const apiContext = useContext(PeopleApiContext)
   const popUpContext = useContext(PopUpContext)
 
   const [errorMessage, setErrorMessage] = useState('')
@@ -33,7 +23,7 @@ const BookingCounsellor = memo(() => {
     const counsellor = popUpContext.counsellor.selectedShift.person
     const unavailableTimeBlocks = []
 
-    if (counsellor) {
+    if (Object.keys(counsellor).length > 0) {
       unavailableTimeBlocks.push(config.SHIFT_STRINGS.FULL.key)
 
       if (counsellor.half === config.SHIFT_HALFS.FIRST) {
@@ -70,7 +60,7 @@ const BookingCounsellor = memo(() => {
 
   const bookShift = () => {
     const scheduledShift = {
-      shift: popUpContext.counsellor.selectedShift.shift,
+      shift: popUpContext.counsellor.selectedShift.shift.name,
       duration: selectedTime === config.SHIFT_STRINGS.FULL.key ? 8 : 4,
       half: selectedTime !== config.SHIFT_STRINGS.FULL.key ? selectedTime : null
     }
@@ -82,41 +72,45 @@ const BookingCounsellor = memo(() => {
   return (
     <PopUpConsumer>
       {({changeVisibility, counsellor}) => (
-        <>
-          <Title>Fill a shift</Title>
-          <PopUpDetails>
-            <ShiftDetails selectedShift={counsellor.selectedShift}/>
-            <PopulateShift
-              selectedCounsellor={selectedCounsellor}
-              changeCounsellor={changeCounsellor}
-              selectedTime={selectedTime}
-              changeTime={changeTime}
-              unavailableTimeBlocks={unavailableTimeBlocks}
-            />
-          </PopUpDetails>
+        <PeopleApiConsumer>
+          {({listOfAllCounsellors}) => (
+            <>
+              <Title>Fill a shift</Title>
+              <PopUpDetails>
+                <ShiftDetails selectedShift={counsellor.selectedShift}/>
+                <PopulateShift
+                  selectedCounsellor={selectedCounsellor}
+                  changeCounsellor={changeCounsellor}
+                  selectedTime={selectedTime}
+                  changeTime={changeTime}
+                  unavailableTimeBlocks={unavailableTimeBlocks}
+                />
+              </PopUpDetails>
 
-          {
-            errorMessage &&
-            <Error>{errorMessage}</Error>
-          }
+              {
+                errorMessage &&
+                <Error>{errorMessage}</Error>
+              }
 
-          <ScheduleShift
-            changeVisibility={changeVisibility}
-            validateRequestedShiftDetails={validateRequestedShiftDetails}
-            disableButtons={confirmBookShift}
-          />
+              <ScheduleShift
+                changeVisibility={changeVisibility}
+                validateRequestedShiftDetails={validateRequestedShiftDetails}
+                disableButtons={confirmBookShift}
+              />
 
-          {
-            confirmBookShift &&
-            <ConfirmShift
-              changeVisibility={changeVisibility}
-              bookShift={bookShift}
-              scheduledShift={counsellor.selectedShift}
-              selectedTime={selectedTime}
-              selectedCounsellor={selectedCounsellor}
-            />
-          }
-        </>
+              {
+                confirmBookShift &&
+                <ConfirmShift
+                  changeVisibility={changeVisibility}
+                  bookShift={bookShift}
+                  scheduledShift={counsellor.selectedShift}
+                  selectedTime={selectedTime}
+                  selectedCounsellor={listOfAllCounsellors.find(c => c.id === Number(selectedCounsellor))}
+                />
+              }
+            </>
+          )}
+        </PeopleApiConsumer>
       )}
     </PopUpConsumer>
   )

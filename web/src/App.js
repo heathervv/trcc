@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Calendar from './calendar'
-import { CounsellorApiProvider } from './api/counsellors/CounsellorApiContext'
+import { PeopleApiProvider } from './api/people/PeopleApiContext'
 import { PopUpProvider } from './popUp/PopUpContext'
 import Login from './api/auth/Login'
 import PopUp from './popUp'
@@ -29,7 +29,7 @@ const AuthCalendar = () => (
 const App = memo(() => (
   <BrowserRouter>
     <Wrapper>
-      <CounsellorApiProvider>
+      <PeopleApiProvider>
         <PopUpProvider>
           <Switch>
             <Route path="/login">
@@ -45,7 +45,7 @@ const App = memo(() => (
             </Route>
           </Switch>
         </PopUpProvider>
-      </CounsellorApiProvider>
+      </PeopleApiProvider>
     </Wrapper>
   </BrowserRouter>
 ))

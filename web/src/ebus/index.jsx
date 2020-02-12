@@ -2,6 +2,8 @@ import React, {Fragment, useContext} from 'react'
 import styled from 'styled-components'
 import { Unfilled } from '../components/UnfilledShift'
 import { PopUpContext } from "../popUp/PopUpContext"
+import config from "../config"
+import { PeopleApiContext } from "../api/people/PeopleApiContext"
 
 const Copy = styled.p`
   font-size: 14px;
@@ -25,17 +27,21 @@ const CopyAsAButton = styled.button`
   }
 `
 
-const Ebu = ({ people, isAuthenticated }) => {
+const Ebu = ({ people, date, isAuthenticated }) => {
+  const apiContext = useContext(PeopleApiContext)
   const popUpContext = useContext(PopUpContext)
 
+  // TODO() send correct shifts for EBUs (instead of hardcoding FULL)
   const cancelShift = (personId) => {
+    const selectedEbu = apiContext.findEbu(personId)
+
     popUpContext.changeVisibility()
-    popUpContext.populatePopUpWithEbu(personId)
+    popUpContext.populatePopUpWithEbu(date.format("YYYY-MM-DD"), config.EBU_SHIFTS.FULL, selectedEbu)
   }
 
   const bookShift = () => {
     popUpContext.changeVisibility()
-    popUpContext.populatePopUpWithEbu()
+    popUpContext.populatePopUpWithEbu(date.format("YYYY-MM-DD"), config.EBU_SHIFTS.FULL)
   }
 
   if (isAuthenticated) {

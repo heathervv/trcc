@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Harry",
+    "role": "counsellor"
+  },
+  {
+    "id": 2,
+    "name": "Ron",
+    "role":  "counsellor"
+  },
+  {
+    "id": 3,
+    "name": "Hermione",
+    "role":  "counsellor"
+  },
+  {
+    "id": 4,
+    "name": "Neville",
+    "role":  "counsellor"
+  },
+  {
+    "id": 5,
+    "name": "Luna",
+    "role":  "counsellor"
+  },
+  {
+    "id": 6,
+    "name": "Draco",
+    "role":  "counsellor"
+  },
+  {
+    "id": 7,
+    "name": "Minerva",
+    "role":  "ebu"
+  },
+  {
+    "id": 8,
+    "name": "Sprout",
+    "role":  "ebu"
+  },
+  {
+    "id": 9,
+    "name": "Trelawney",
+    "role":  "ebu"
+  }
+]

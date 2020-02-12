@@ -24,8 +24,15 @@ const SHIFT_STRINGS = {
   }
 }
 
+const EBU_SHIFTS = {
+  FULL: "full",
+  FIRST_HALF: "first half",
+  SECOND_HALF: "second half"
+}
+
 export default {
   SHIFTS,
   SHIFT_HALFS,
-  SHIFT_STRINGS
+  SHIFT_STRINGS,
+  EBU_SHIFTS
 }

@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import config from '../config'
 
 const Wrapper = styled.ul`
   padding: 20px;
@@ -29,9 +28,6 @@ const Heading = styled.span`
 `
 
 const ShiftDetails = memo(({ selectedShift }) => {
-  // Turn shift into Title case
-  const formattedShift = `${selectedShift.shift.charAt(0)}${selectedShift.shift.substr(1).toLowerCase()}`
-
   return (
     <Wrapper>
       <Item>
@@ -40,20 +36,17 @@ const ShiftDetails = memo(({ selectedShift }) => {
       </Item>
       <Item>
         <Heading>Selected shift:</Heading>
-        {formattedShift} ({config.SHIFTS[selectedShift.shift]})
+        {selectedShift.shift.name} ({selectedShift.shift.time})
       </Item>
       {
-        selectedShift.person &&
+        selectedShift.person.name &&
         <Item>
           <Heading>Scheduled counsellor:</Heading>
           {selectedShift.person.name}
           &nbsp;
           {
-            selectedShift.person.duration ? (
-              `(${selectedShift.person.duration} hours)`
-            ) : (
-              "(4 hours)"
-            )
+            selectedShift.person.duration &&
+            `(${selectedShift.person.duration} hours)`
           }
         </Item>
       }

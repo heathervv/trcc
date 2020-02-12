@@ -5,6 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { PopUpConsumer, FLOWS } from './PopUpContext'
 import BookingCounsellor from './BookingCounsellor'
 import Cancelling from './Cancelling'
+import BookingEbu from "./BookingEbu"
 
 const Wrapper = styled.div`
   position: fixed;
@@ -69,7 +70,7 @@ const PopUp = memo(() => (
                 <>
                   {
                     ebu.flow === FLOWS.ADD ? (
-                      <p>hi im an ebu</p>
+                      <BookingEbu/>
                     ) : (
                       <Cancelling person={Cancelling.PERSON.EBU}/>
                     )

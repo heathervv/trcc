@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import ApiClient from './counsellorApi'
+import ApiClient from './peopleApi'
 
-export const CounsellorApiContext = React.createContext()
+export const PeopleApiContext = React.createContext()
 
-export class CounsellorApiProvider extends Component {
+export class PeopleApiProvider extends Component {
   constructor() {
     super()
 
     this.state = {
       shifts: ApiClient.getScheduledShifts(),
-      counsellors: ApiClient.getCounsellors()
+      counsellors: ApiClient.getCounsellors(),
+      ebus: ApiClient.getEbus()
     }
   }
 
@@ -38,6 +39,10 @@ export class CounsellorApiProvider extends Component {
     return this.state.counsellors.find((counsellor) => counsellor.id === counsellorId)
   }
 
+  findEbu = (ebuId) => {
+    return this.state.ebus.find((ebu) => ebu.id === ebuId)
+  }
+
   removeCounsellorFromShift = (date, shift, counsellor) => {
     const updatedSchedule = ApiClient.removeCounsellorFromShift(this.state.shifts, date, shift, counsellor)
 
@@ -46,20 +51,23 @@ export class CounsellorApiProvider extends Component {
 
   render() {
     return (
-      <CounsellorApiContext.Provider
+      <PeopleApiContext.Provider
         value={{
           scheduledShifts: this.state.shifts,
           scheduleNewShift: this.scheduleNewShift,
           removeCounsellorFromShift: this.removeCounsellorFromShift,
           listOfAllCounsellors: this.state.counsellors,
           findPotentialCounsellorAlreadyOnShift: this.findPotentialCounsellorAlreadyOnShift,
-          findCounsellor: this.findCounsellor
+          findCounsellor: this.findCounsellor,
+
+          listOfAllEbus: this.state.ebus,
+          findEbu: this.findEbu
         }}
       >
         {this.props.children}
-      </CounsellorApiContext.Provider>
+      </PeopleApiContext.Provider>
     )
   }
 }
 
-export const CounsellorApiConsumer = CounsellorApiContext.Consumer
+export const PeopleApiConsumer = PeopleApiContext.Consumer

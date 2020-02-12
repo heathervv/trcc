@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 import Shifts from '../counsellors'
-import Ebu from "../ebu"
+import Ebu from "../ebus"
 
 const Wrapper = styled.div`
   border-top: 1px solid #000;
@@ -42,6 +42,7 @@ const Day = memo(({ blank, possibleScheduledPeople, date, isAuthenticated }) => 
             <Date>{date.format("D")}</Date>
             <Ebu
               people={possibleScheduledPeople ? possibleScheduledPeople.ebus : null}
+              date={date}
               isAuthenticated={isAuthenticated}
             />
           </DayHeader>

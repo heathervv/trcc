@@ -1,8 +1,8 @@
-// TODO connect the counsellor api to a real API and fix all these faked out functions
+// TODO() connect the counsellor api to a real API and fix all these faked out functions
 
 import config from '../../config'
 import TEMP_DATA from './dummy_data.json'
-import TEMP_COUNSELLORS from './dummy_counsellors.json'
+import TEMP_PEOPLE from './dummy_people.json'
 
 const getScheduledShifts = () => {
   return TEMP_DATA
@@ -78,12 +78,17 @@ const removeCounsellorFromShift = (scheduledShifts, date, shift, counsellor) => 
 }
 
 const getCounsellors = () => {
-  return TEMP_COUNSELLORS
+  return TEMP_PEOPLE.filter(person => person.role === 'counsellor')
+}
+
+const getEbus = () => {
+  return TEMP_PEOPLE.filter(person => person.role === 'ebu')
 }
 
 export default {
   getScheduledShifts,
   scheduleNewShift,
   removeCounsellorFromShift,
-  getCounsellors
+  getCounsellors,
+  getEbus
 }
